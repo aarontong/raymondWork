@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "613907820847",
+    "project_id": "eldoradowatch-c7c19",
+    "storage_bucket": "eldoradowatch-c7c19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613907820847:android:c6f21109196be9e7d171da",
+        "android_client_info": {
+          "package_name": "com.eldoradowatch.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613907820847-0t3jcqvv1qd61nvdlojum7sfar90ee96.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp9i6lU7Jjy3TO4Z43V06VU3rHNUylx0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613907820847-0t3jcqvv1qd61nvdlojum7sfar90ee96.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "613907820847-vdae2pg8r0uk9f9hmi8qrlpqujsk0i09.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.eldoradowatch.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
