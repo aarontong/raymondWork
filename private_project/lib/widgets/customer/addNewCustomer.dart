@@ -7,6 +7,7 @@ import 'package:private_project/widgets/customer/insertField/enNameFIeld.dart';
 import 'package:private_project/widgets/customer/insertField/genderField.dart';
 import 'package:private_project/widgets/customer/insertField/homeAddressField.dart';
 import 'package:private_project/widgets/customer/insertField/mobileFIeld.dart';
+import 'package:private_project/widgets/customer/insertField/nameCardImage.dart';
 import 'package:private_project/widgets/customer/insertField/professionFIeld.dart';
 
 class addNewCustomerWidget extends StatelessWidget{
@@ -29,6 +30,8 @@ Widget build(BuildContext context) {
                               Padding(padding: EdgeInsets.all(10),child:professionField()),
                               Padding(padding: EdgeInsets.all(10),child:homeAddressField()),
                               Padding(padding: EdgeInsets.all(10),child:genderField()),
+                              Padding(padding: EdgeInsets.all(10),child:nameCardImageField()),
+
 
                             ],
                           ))),
