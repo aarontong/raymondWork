@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:private_project/widgets/customer/insertField/addCustomerButton.dart';
 import 'package:private_project/widgets/customer/insertField/ageField.dart';
 import 'package:private_project/widgets/customer/insertField/chNameField.dart';
 import 'package:private_project/widgets/customer/insertField/emailField.dart';
@@ -31,6 +32,7 @@ Widget build(BuildContext context) {
                               Padding(padding: EdgeInsets.all(10),child:homeAddressField()),
                               Padding(padding: EdgeInsets.all(10),child:genderField()),
                               Padding(padding: EdgeInsets.all(10),child:nameCardImageField()),
+                              Padding(padding: EdgeInsets.all(10),child:addCustomerButton()),
 
 
                             ],
