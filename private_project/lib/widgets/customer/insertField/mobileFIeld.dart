@@ -5,7 +5,7 @@ class mobileField extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return TextFormField(decoration: new InputDecoration.collapsed(hintText: "Mobile Phone:",border: UnderlineInputBorder()),keyboardType: TextInputType.phone,);
+    return TextFormField(decoration: new InputDecoration.collapsed(hintText: "Mobile Phone:",border: UnderlineInputBorder()),keyboardType: TextInputType.phone,controller: mobileFieldController);
   }
 
 }

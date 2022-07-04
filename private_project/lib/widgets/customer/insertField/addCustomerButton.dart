@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class addCustomerButton extends StatelessWidget{
+  final Function pressedButton;
+  const addCustomerButton({Key? key, required this.pressedButton}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -8,7 +11,7 @@ class addCustomerButton extends StatelessWidget{
         color: Colors.red,
         width: 5,
       ),borderRadius: BorderRadius.all(Radius.circular(20)),color: Colors.red),child: TextButton(onPressed: (){
-      print("Hello");
+      pressedButton();
     }, child: Text("hello")),),);
   }
 

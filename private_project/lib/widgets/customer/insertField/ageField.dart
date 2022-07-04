@@ -5,7 +5,7 @@ class ageField extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return TextFormField(decoration: new InputDecoration.collapsed(hintText: "Age:",border: UnderlineInputBorder()),keyboardType: TextInputType.number,);
+    return TextFormField(decoration: new InputDecoration.collapsed(hintText: "Age:",border: UnderlineInputBorder()),keyboardType: TextInputType.number,controller: ageFieldController,);
   }
 
 }

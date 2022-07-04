@@ -11,13 +11,26 @@ import 'package:private_project/widgets/customer/insertField/mobileFIeld.dart';
 import 'package:private_project/widgets/customer/insertField/nameCardImage.dart';
 import 'package:private_project/widgets/customer/insertField/professionFIeld.dart';
 
-class addNewCustomerWidget extends StatelessWidget{
+class addNewCustomerWidget extends StatefulWidget{
 addNewCustomerWidget({Key? key, required this.title}) : super(key: key);
 final String title;
 static String route = "/addNewCustomerWidget";
 
-@override
-Widget build(BuildContext context) {
+Widget okAction = TextButton(
+    child: Text("OK"),
+    onPressed: () { },
+  );
+  
+  @override
+  State<StatefulWidget> createState() => addNewCustomerState();
+
+
+
+}
+
+class addNewCustomerState extends State<addNewCustomerWidget>{
+  @override
+  Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(body: Padding(padding: EdgeInsets.all(10),child: Form(autovalidateMode: AutovalidateMode.always,
                           child: Column(
@@ -32,7 +45,7 @@ Widget build(BuildContext context) {
                               Padding(padding: EdgeInsets.all(10),child:homeAddressField()),
                               Padding(padding: EdgeInsets.all(10),child:genderField()),
                               Padding(padding: EdgeInsets.all(10),child:nameCardImageField()),
-                              Padding(padding: EdgeInsets.all(10),child:addCustomerButton()),
+                              Padding(padding: EdgeInsets.all(10),child:addCustomerButton(pressedButton: submitButtonPressed,)),
 
 
                             ],
@@ -40,7 +53,29 @@ Widget build(BuildContext context) {
                         appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(title),
+        title: Text(widget.title),
       ));
+      
+}
+Future<void> _showAlertDialog() async {
+  return showDialog(context: context, builder: (BuildContext context){ return AlertDialog(title: Text("Input Missing"), content: Text("Please enter data in all fields"), actions: [
+      widget.okAction,
+    ],);});
 }  
+void submitButtonPressed(){
+  String emailText = emailField.emailFieldController.text;
+  String mobileText = mobileField.mobileFieldController.text;
+  String enNameText = enNameField.enNameFieldController.text;
+  String chNameText = chNameField.chNameFieldController.text;
+  String homeAddressText = homeAddressField.homeAddressFieldController.text;
+  String ageText = ageField.ageFieldController.text;
+  String professionFieldText = professionField.professionFieldController.text;
+  if(emailText == "" || mobileText == "" || enNameText == "" || chNameText == "" ||
+  homeAddressText == "" || ageText == "" || professionFieldText == ""){
+    _showAlertDialog();
+  }
+
+}
+
+
 }

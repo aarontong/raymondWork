@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class emailField extends StatelessWidget{
-  static TextEditingController ageFieldController = TextEditingController();
+  static TextEditingController emailFieldController = TextEditingController();
   static bool emailValid = false;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return TextFormField(validator: (value) => validateEmail(value),decoration: new InputDecoration.collapsed(hintText: "Email:",border: UnderlineInputBorder()) , keyboardType: TextInputType.emailAddress,);
+    return TextFormField(validator: (value) => validateEmail(value),decoration: new InputDecoration.collapsed(hintText: "Email:",border: UnderlineInputBorder()) , keyboardType: TextInputType.emailAddress,controller: emailFieldController);
   }
 String validateEmail(String? value) {
     String pattern =

@@ -4,7 +4,7 @@ class enNameField extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return TextFormField(decoration: new InputDecoration.collapsed(hintText: "English Name:",border: UnderlineInputBorder()),keyboardType: TextInputType.name,);
+    return TextFormField(decoration: new InputDecoration.collapsed(hintText: "English Name:",border: UnderlineInputBorder()),keyboardType: TextInputType.name,controller: enNameFieldController);
   }
 
 }

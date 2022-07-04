@@ -5,7 +5,7 @@ class homeAddressField extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return TextFormField(decoration: new InputDecoration.collapsed(hintText: "Address:",border: UnderlineInputBorder()),keyboardType: TextInputType.streetAddress,);
+    return TextFormField(decoration: new InputDecoration.collapsed(hintText: "Address:",border: UnderlineInputBorder()),keyboardType: TextInputType.streetAddress,controller: homeAddressFieldController);
   }
 
 }
