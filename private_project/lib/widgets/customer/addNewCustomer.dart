@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:private_project/model/customer.dart';
 import 'package:private_project/widgets/customer/insertField/addCustomerButton.dart';
 import 'package:private_project/widgets/customer/insertField/ageField.dart';
 import 'package:private_project/widgets/customer/insertField/chNameField.dart';
@@ -30,7 +31,7 @@ class addNewCustomerState extends State<addNewCustomerWidget>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new Scaffold(body: Padding(padding: EdgeInsets.all(10),child: Form(autovalidateMode: AutovalidateMode.always,
+    return new Scaffold(body: Padding(padding: EdgeInsets.all(10),child: SingleChildScrollView(child: Form(autovalidateMode: AutovalidateMode.always,
                           child: Column(
                             
                             children: <Widget>[
@@ -47,7 +48,7 @@ class addNewCustomerState extends State<addNewCustomerWidget>{
 
 
                             ],
-                          ))),
+                          )))),
                         appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
@@ -87,12 +88,17 @@ Future<void> submitButtonPressed() async {
     final storageRef = FirebaseStorage.instance.ref();
     
     Reference? imageRed = storageRef.child("customer-profile-image");
-    DatabaseReference ref = FirebaseDatabase.instance.ref("client");
+    DatabaseReference ref = FirebaseDatabase.instance.ref("Client");
+    Customer newCustomer = new Customer(chName: chNameText, enName: enNameText, mobileNumber: mobileText, 
+    email: emailText, age: ageText, gender: "", 
+    homeAddress: homeAddressText, profession: professionFieldText);
+    ref = ref.child(mobileText);
     await ref.set({
-      "name": "John",
-      "age": 18,
+      "enName": newCustomer.enName,
+      "chName": newCustomer.chName,
+      "age": newCustomer.age,
       "address": {
-        "line1": "100 Mountain View"
+        "line1": newCustomer.homeAddress
     }
 });
 
