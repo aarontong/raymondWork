@@ -1,3 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:private_project/widgets/customer/insertField/addCustomerButton.dart';
@@ -16,11 +19,6 @@ addNewCustomerWidget({Key? key, required this.title}) : super(key: key);
 final String title;
 static String route = "/addNewCustomerWidget";
 
-Widget okAction = TextButton(
-    child: Text("OK"),
-    onPressed: () { },
-  );
-  
   @override
   State<StatefulWidget> createState() => addNewCustomerState();
 
@@ -58,11 +56,22 @@ class addNewCustomerState extends State<addNewCustomerWidget>{
       
 }
 Future<void> _showAlertDialog() async {
-  return showDialog(context: context, builder: (BuildContext context){ return AlertDialog(title: Text("Input Missing"), content: Text("Please enter data in all fields"), actions: [
-      widget.okAction,
+  return showDialog(context: context, builder: (BuildContext context){
+    Widget okAction = TextButton(
+    child: Text("OK"),
+    onPressed: () {       
+      Navigator.of(context).pop(); // dismiss dialog
+},
+  );
+
+    
+    
+     return AlertDialog(title: Text("Input Missing"), content: Text("Please enter data in all fields"), actions: [
+      okAction,
+
     ],);});
 }  
-void submitButtonPressed(){
+Future<void> submitButtonPressed() async {
   String emailText = emailField.emailFieldController.text;
   String mobileText = mobileField.mobileFieldController.text;
   String enNameText = enNameField.enNameFieldController.text;
@@ -73,6 +82,23 @@ void submitButtonPressed(){
   if(emailText == "" || mobileText == "" || enNameText == "" || chNameText == "" ||
   homeAddressText == "" || ageText == "" || professionFieldText == ""){
     _showAlertDialog();
+  }else{
+    final storage = FirebaseStorage.instance;
+    final storageRef = FirebaseStorage.instance.ref();
+    
+    Reference? imageRed = storageRef.child("customer-profile-image");
+    DatabaseReference ref = FirebaseDatabase.instance.ref("client");
+    await ref.set({
+      "name": "John",
+      "age": 18,
+      "address": {
+        "line1": "100 Mountain View"
+    }
+});
+
+
+
+
   }
 
 }

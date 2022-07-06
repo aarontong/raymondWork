@@ -3,8 +3,10 @@ import 'package:private_project/widgets/inventory/addNewInventory.dart';
 import 'package:private_project/widgets/inventory/searchInventory.dart';
 import 'widgets/customer/addNewCustomer.dart';
 import 'widgets/customer/searchCustomer.dart';
-
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -77,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
