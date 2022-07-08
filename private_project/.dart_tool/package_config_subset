@@ -1,7 +1,3 @@
-private_project
-2.17
-file:///Users/aarontong/Documents/GitHub/raymondWork/private_project/
-file:///Users/aarontong/Documents/GitHub/raymondWork/private_project/lib/
 async
 2.12
 file:///Users/aarontong/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.8.2/
@@ -206,4 +202,8 @@ flutter_web_plugins
 2.17
 file:///Users/aarontong/Documents/flutter/packages/flutter_web_plugins/
 file:///Users/aarontong/Documents/flutter/packages/flutter_web_plugins/lib/
+private_project
+2.17
+file:///Users/aarontong/raymondWork/private_project/
+file:///Users/aarontong/raymondWork/private_project/lib/
 2

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class genderField extends StatefulWidget{
+  static String gender = "M";
   @override
   State<genderField> createState() => genderFieldState();
 
@@ -41,6 +42,11 @@ class genderFieldState extends State<genderField>{
   void valueChanged(int value){
     setState(() {
       _value = value;
+      if(value == 1){
+        genderField.gender = "M";
+      }else if(value == 2){
+        genderField.gender = "F";
+      }
     });
 
   }

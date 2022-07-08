@@ -90,7 +90,7 @@ Future<void> submitButtonPressed() async {
     Reference? imageRed = storageRef.child("customer-profile-image");
     DatabaseReference ref = FirebaseDatabase.instance.ref("Client");
     Customer newCustomer = new Customer(chName: chNameText, enName: enNameText, mobileNumber: mobileText, 
-    email: emailText, age: ageText, gender: "", 
+    email: emailText, age: ageText, gender: genderField.gender, 
     homeAddress: homeAddressText, profession: professionFieldText);
     ref = ref.child(mobileText);
     await ref.set({
@@ -99,7 +99,12 @@ Future<void> submitButtonPressed() async {
       "age": newCustomer.age,
       "address": {
         "line1": newCustomer.homeAddress
-    }
+      },
+      "email":newCustomer.email,
+      "mobile":newCustomer.mobileNumber,
+      "profession":newCustomer.profession,
+      "gender":newCustomer.gender
+
 });
 
 
