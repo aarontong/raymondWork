@@ -31,7 +31,7 @@ class customerModule {
   static Future<void> addNewCustomer(
       Customer newCustomer, String mobileText) async {
     DatabaseReference ref = FirebaseDatabase.instance.ref("Client");
-    addCustomerProfilePicture(newCustomer, mobileText);
+    await addCustomerProfilePicture(newCustomer, mobileText);
     ref = ref.child(mobileText);
     await ref.set({
       "enName": newCustomer.enName,
@@ -41,7 +41,8 @@ class customerModule {
       "email": newCustomer.email,
       "mobile": newCustomer.mobileNumber,
       "profession": newCustomer.profession,
-      "gender": newCustomer.gender
+      "gender": newCustomer.gender,
+      "profileImageURL": newCustomer.profileImageURL
     });
   }
 
@@ -55,8 +56,7 @@ class customerModule {
       UploadTask task = imageRef.putFile(newCustomer.profileImage);
       var imageUrl = await (await task).ref.getDownloadURL();
       String url = imageUrl.toString();
-      print(url);
-
+      newCustomer.profileImageURL = url;
       await task.whenComplete(() => null);
     } on FirebaseException catch (error) {
       if (error != null) {
