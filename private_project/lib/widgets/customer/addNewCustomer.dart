@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:private_project/action/customerModule.dart';
 import 'package:private_project/model/customer.dart';
 import 'package:private_project/widgets/customer/insertField/addCustomerButton.dart';
 import 'package:private_project/widgets/customer/insertField/ageField.dart';
@@ -84,28 +85,11 @@ Future<void> submitButtonPressed() async {
   homeAddressText == "" || ageText == "" || professionFieldText == ""){
     _showAlertDialog();
   }else{
-    final storage = FirebaseStorage.instance;
-    final storageRef = FirebaseStorage.instance.ref();
     
-    Reference? imageRed = storageRef.child("customer-profile-image");
-    DatabaseReference ref = FirebaseDatabase.instance.ref("Client");
     Customer newCustomer = new Customer(chName: chNameText, enName: enNameText, mobileNumber: mobileText, 
     email: emailText, age: ageText, gender: genderField.gender, 
     homeAddress: homeAddressText, profession: professionFieldText);
-    ref = ref.child(mobileText);
-    await ref.set({
-      "enName": newCustomer.enName,
-      "chName": newCustomer.chName,
-      "age": newCustomer.age,
-      "address": {
-        "line1": newCustomer.homeAddress
-      },
-      "email":newCustomer.email,
-      "mobile":newCustomer.mobileNumber,
-      "profession":newCustomer.profession,
-      "gender":newCustomer.gender
-
-});
+    customerModule.addNewCustomer(newCustomer,mobileText);
 
 
 
