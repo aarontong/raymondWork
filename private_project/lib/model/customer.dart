@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class Customer{
@@ -9,7 +11,7 @@ class Customer{
   late String gender;
   late String homeAddress;
   late String age;
-
+  late File profileImage;
   Customer({Key? key, required this.chName,required this.enName, required this.mobileNumber, required this.email, required this.age
-  , required this.gender,required this.homeAddress,required this.profession});
+  , required this.gender,required this.homeAddress,required this.profession,required this.profileImage});
 }

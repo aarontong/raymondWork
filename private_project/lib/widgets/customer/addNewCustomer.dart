@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -81,6 +83,7 @@ Future<void> submitButtonPressed() async {
   String homeAddressText = homeAddressField.homeAddressFieldController.text;
   String ageText = ageField.ageFieldController.text;
   String professionFieldText = professionField.professionFieldController.text;
+  File profileFilePath = nameCardImageField.profileFilePath();
   if(emailText == "" || mobileText == "" || enNameText == "" || chNameText == "" ||
   homeAddressText == "" || ageText == "" || professionFieldText == ""){
     _showAlertDialog();
@@ -88,7 +91,7 @@ Future<void> submitButtonPressed() async {
     
     Customer newCustomer = new Customer(chName: chNameText, enName: enNameText, mobileNumber: mobileText, 
     email: emailText, age: ageText, gender: genderField.gender, 
-    homeAddress: homeAddressText, profession: professionFieldText);
+    homeAddress: homeAddressText, profession: professionFieldText,profileImage: profileFilePath);
     customerModule.addNewCustomer(newCustomer,mobileText);
 
 
