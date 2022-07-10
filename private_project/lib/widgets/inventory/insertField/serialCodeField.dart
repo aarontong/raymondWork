@@ -6,12 +6,13 @@ class serialCodeField extends StatefulWidget {
 }
 
 class serialCodeFieldState extends State<serialCodeField> {
-  static TextEditingController barCodeFieldController = TextEditingController();
+  static TextEditingController serialCodeFieldController =
+      TextEditingController();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return TextFormField(
-      controller: barCodeFieldController,
+      controller: serialCodeFieldController,
       decoration: new InputDecoration.collapsed(
           hintText: "Serial Code:", border: UnderlineInputBorder()),
     );

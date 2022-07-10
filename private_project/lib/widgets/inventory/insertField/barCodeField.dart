@@ -4,10 +4,10 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class barCodeField extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => productCodeFieldState();
+  State<StatefulWidget> createState() => barCodeFieldState();
 }
 
-class productCodeFieldState extends State<barCodeField> {
+class barCodeFieldState extends State<barCodeField> {
   String barCodeString = "";
   static TextEditingController barCodeFieldController = TextEditingController();
   @override

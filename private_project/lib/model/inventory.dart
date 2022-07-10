@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 
-class Product {
+class Inventory {
   late String serialCode;
   late String barCode;
   late String productCode;
+  late String description;
 
-  Product({
+  Inventory({
     Key? key,
     required this.serialCode,
     required this.barCode,
     required this.productCode,
+    required this.description,
   });
 }
