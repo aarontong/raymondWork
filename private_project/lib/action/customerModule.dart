@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:private_project/widgets/customer/addNewCustomer.dart';
 import 'package:private_project/widgets/customer/insertField/addCustomerButton.dart';
 import 'package:private_project/widgets/customer/insertField/ageField.dart';
@@ -16,20 +19,17 @@ import 'package:private_project/widgets/customer/insertField/professionFIeld.dar
 import '../model/customer.dart';
 
 class customerModule {
+  static String customerListJsonString = "";
   late addNewCustomerState state;
   static final customerModule _customerModule = customerModule._internal();
-  factory customerModule.single(addNewCustomerState state) {
-    customerModule(state);
+  factory customerModule(addNewCustomerState state) {
+    _customerModule.state = state;
     return _customerModule;
-  }
-  customerModule(addNewCustomerState state) {
-    this.state = state;
   }
 
   customerModule._internal();
 
-  static Future<void> addNewCustomer(
-      Customer newCustomer, String mobileText) async {
+  Future<void> addNewCustomer(Customer newCustomer, String mobileText) async {
     DatabaseReference ref = FirebaseDatabase.instance.ref("Client");
     await addCustomerProfilePicture(newCustomer, mobileText);
     ref = ref.child(mobileText);
@@ -44,9 +44,30 @@ class customerModule {
       "gender": newCustomer.gender,
       "profileImageURL": newCustomer.profileImageURL
     });
+    updateCustomerListCache();
   }
 
-  static Future<void> addCustomerProfilePicture(
+  void updateCustomerListCache() {
+    DatabaseReference ref = FirebaseDatabase.instance.ref("Client");
+    ref.onValue.listen((event) async {
+      final data = event.snapshot.value;
+      String dataString = data.toString();
+      String fileName = "customerListCache.json";
+      var dir = await getTemporaryDirectory();
+      File file = File(dir.path + "/" + fileName);
+      file.writeAsStringSync(dataString, flush: true, mode: FileMode.write);
+      getCachedContent();
+    });
+  }
+
+  Future<void> getCachedContent() async {
+    String fileName = "customerListCache.json";
+    var dir = await getTemporaryDirectory();
+    File file = File(dir.path + "/" + fileName);
+    customerListJsonString = await file.readAsString();
+  }
+
+  Future<void> addCustomerProfilePicture(
       Customer newCustomer, String mobileText) async {
     final storageRef = FirebaseStorage.instance.ref();
 

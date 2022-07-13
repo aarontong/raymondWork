@@ -116,6 +116,7 @@ class addNewCustomerState extends State<addNewCustomerWidget> {
         professionFieldText == "") {
       _showAlertDialog();
     } else {
+      customerModule cm = customerModule(this);
       Customer newCustomer = new Customer(
           chName: chNameText,
           enName: enNameText,
@@ -126,7 +127,7 @@ class addNewCustomerState extends State<addNewCustomerWidget> {
           homeAddress: homeAddressText,
           profession: professionFieldText,
           profileImage: profileFilePath);
-      customerModule.addNewCustomer(newCustomer, mobileText);
+      cm.addNewCustomer(newCustomer, mobileText);
     }
   }
 }
