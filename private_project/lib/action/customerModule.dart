@@ -15,10 +15,12 @@ import 'package:private_project/widgets/customer/insertField/homeAddressField.da
 import 'package:private_project/widgets/customer/insertField/mobileFIeld.dart';
 import 'package:private_project/widgets/customer/insertField/nameCardImage.dart';
 import 'package:private_project/widgets/customer/insertField/professionFIeld.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/customer.dart';
 
 class customerModule {
+  static late int timestamp1;
   static String customerListJsonString = "";
   late addNewCustomerState state;
   static final customerModule _customerModule = customerModule._internal();
@@ -56,7 +58,10 @@ class customerModule {
       var dir = await getTemporaryDirectory();
       File file = File(dir.path + "/" + fileName);
       file.writeAsStringSync(dataString, flush: true, mode: FileMode.write);
-      getCachedContent();
+      DateTime nowDate = DateTime.now();
+      timestamp1 = nowDate.millisecondsSinceEpoch;
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt("customerListCacheTime", timestamp1);
     });
   }
 
