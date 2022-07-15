@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -129,6 +131,9 @@ class searchCustomerState extends State<searchCustomerWidget> {
           } else {
             // data loaded:
             final androidDeviceInfo = snapshot.data;
+            Map<String, dynamic> map;
+            if (androidDeviceInfo != "") map = jsonDecode(androidDeviceInfo!);
+
             return Center(
               child: TableView(
                 delegate: delegate,

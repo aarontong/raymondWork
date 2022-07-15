@@ -40,17 +40,27 @@ class customerModule {
   Future<void> addNewCustomer(Customer newCustomer, String mobileText) async {
     DatabaseReference ref = FirebaseDatabase.instance.ref("Client");
     await addCustomerProfilePicture(newCustomer, mobileText);
-    ref = ref.child(mobileText);
+    String enName = newCustomer.enName;
+    String chName = newCustomer.chName;
+    String age = newCustomer.age;
+    String homeAddress = newCustomer.homeAddress;
+    String email = newCustomer.email;
+    String mobileNumber = newCustomer.mobileNumber;
+    String profession = newCustomer.profession;
+    String gender = newCustomer.gender;
+    String profileImageURL = newCustomer.profileImageURL;
+
+    ref = ref.child("\"$mobileText\"");
     await ref.set({
-      "enName": newCustomer.enName,
-      "chName": newCustomer.chName,
-      "age": newCustomer.age,
-      "address": {"line1": newCustomer.homeAddress},
-      "email": newCustomer.email,
-      "mobile": newCustomer.mobileNumber,
-      "profession": newCustomer.profession,
-      "gender": newCustomer.gender,
-      "profileImageURL": newCustomer.profileImageURL
+      "\"enName\"": "\"$enName\"",
+      "\"chName\"": "\"$chName\"",
+      "\"age\"": "\"$age\"",
+      "\"address\"": {"\"line1\"": "\"$homeAddress\""},
+      "\"email\"": "\"$email\"",
+      "\"mobile\"": "\"$mobileNumber\"",
+      "\"profession\"": "\"$profession\"",
+      "\"gender\"": "\"$gender\"",
+      "\"profileImageURL\"": "\"$profileImageURL\""
     });
     updateCustomerListCache();
   }
