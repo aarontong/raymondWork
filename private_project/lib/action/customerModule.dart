@@ -55,7 +55,7 @@ class customerModule {
       "\"enName\"": "\"$enName\"",
       "\"chName\"": "\"$chName\"",
       "\"age\"": "\"$age\"",
-      "\"address\"": {"\"line1\"": "\"$homeAddress\""},
+      "\"address\"": "\"$homeAddress\"",
       "\"email\"": "\"$email\"",
       "\"mobile\"": "\"$mobileNumber\"",
       "\"profession\"": "\"$profession\"",

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:private_project/widgets/customer/searchCustomerInfo.dart';
 import 'package:private_project/widgets/inventory/addNewInventory.dart';
 import 'package:private_project/widgets/inventory/searchInventory.dart';
 import 'widgets/customer/addNewCustomer.dart';
 import 'widgets/customer/searchCustomer.dart';
 import 'package:firebase_core/firebase_core.dart';
-void main() async{
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
@@ -33,9 +34,12 @@ class MyApp extends StatelessWidget {
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
       routes: {
-        addNewCustomerWidget.route: (context) => addNewCustomerWidget(title:"Add New Customer"),
-        addNewInventoryWidget.route: (context) => addNewInventoryWidget(title:"Add New Inventory"),
-
+        addNewCustomerWidget.route: (context) =>
+            addNewCustomerWidget(title: "Add New Customer"),
+        addNewInventoryWidget.route: (context) =>
+            addNewInventoryWidget(title: "Add New Inventory"),
+        searchCustomerInfo.route: (context) =>
+            searchCustomerInfo(title: "Customer Info"),
       },
     );
   }
@@ -43,7 +47,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
-
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -79,7 +82,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -88,14 +90,16 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       body: tabs[counter],
-      
-      bottomNavigationBar: BottomNavigationBar(items: const <BottomNavigationBarItem> [
-        BottomNavigationBarItem(icon: Icon(Icons.call),label: 'Customer'),
-        BottomNavigationBarItem(icon: Icon(Icons.mail),label: 'Inventory'),
-      ],currentIndex: counter,
-      onTap: (int index){
-        setPage(index);
-      },),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.call), label: 'Customer'),
+          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inventory'),
+        ],
+        currentIndex: counter,
+        onTap: (int index) {
+          setPage(index);
+        },
+      ),
     );
   }
 }

@@ -24,4 +24,27 @@ class Customer {
       required this.homeAddress,
       required this.profession,
       required this.profileImage});
+
+  Customer.fromJson(Map<String, dynamic> json)
+      : chName = json['chName'],
+        enName = json['enName'],
+        mobileNumber = json['mobile'],
+        email = json['email'],
+        age = json['age'],
+        gender = json['gender'],
+        homeAddress = json['address'],
+        profession = json['profession'],
+        profileImageURL = json['profileImageURL'];
+
+  Map<String, dynamic> toJson() => {
+        'chName': chName,
+        'enName': enName,
+        'mobile': mobileNumber,
+        'email': email,
+        'age': age,
+        'gender': gender,
+        'address': homeAddress,
+        'profession': profession,
+        'profileImageURL': profileImageURL,
+      };
 }

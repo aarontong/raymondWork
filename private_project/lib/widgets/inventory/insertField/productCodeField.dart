@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class productCodeField extends StatefulWidget {
+  static TextEditingController productCodeController = TextEditingController();
   @override
   State<StatefulWidget> createState() => productCodeFieldState();
 }
@@ -13,8 +14,14 @@ class productCodeFieldState extends State<productCodeField> {
     // TODO: implement build
     return TextFormField(
       controller: productCodeFieldController,
-      decoration: new InputDecoration.collapsed(
-          hintText: "Product Code:", border: UnderlineInputBorder()),
+      decoration: new InputDecoration(
+        hintText: "Product Code:",
+        border: UnderlineInputBorder(),
+        suffixIcon: IconButton(
+          onPressed: productCodeField.productCodeController.clear,
+          icon: Icon(Icons.search),
+        ),
+      ),
     );
   }
 }

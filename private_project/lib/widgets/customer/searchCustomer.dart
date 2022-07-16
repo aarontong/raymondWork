@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:private_project/action/customerModule.dart';
+import 'package:private_project/widgets/customer/searchCustomerInfo.dart';
 import 'package:tableview/tableview.dart';
 import 'package:private_project/widgets/customer/addNewCustomer.dart';
+
+import '../../model/customer.dart';
 
 class searchCustomerWidget extends StatefulWidget {
   const searchCustomerWidget({Key? key, required this.title}) : super(key: key);
@@ -18,27 +21,7 @@ class searchCustomerWidget extends StatefulWidget {
 }
 
 class searchCustomerState extends State<searchCustomerWidget> {
-  static List<List<String>> rowList = [
-    ["阿昌族"],
-    ["白族", "保安族", "布朗族", "布依族"],
-    ["藏族", "朝鲜族"],
-    ["傣族", "达斡尔族", "德昂族", "东乡族", "侗族", "独龙族"],
-    ["鄂伦春族", "俄罗斯族", "鄂温克族"],
-    ["高山族", "仡佬族"],
-    ["哈尼族", "汉族", "哈萨克族", "赫哲族", "回族"],
-    ["景颇族", "京族", "基诺族"],
-    ["柯尔克孜族"],
-    ["拉祜族", "傈僳族", "黎族", "珞巴族"],
-    ["满族", "毛南族", "门巴族", "蒙古族", "苗族", "仫佬族"],
-    ["纳西族", "怒族"],
-    ["普米族"],
-    ["羌族"],
-    ["撒拉族", "畲族", "水族"],
-    ["塔吉克族", "塔塔尔族", "土家族", "土族"],
-    ["佤族", "维吾尔族", "乌孜别克族"],
-    ["锡伯族"],
-    ["瑶族", "彝族", "裕固族"],
-  ];
+  static List<Customer> customerList = [];
   static List<String> headerList = [
     "A",
     "B",
@@ -67,9 +50,9 @@ class searchCustomerState extends State<searchCustomerWidget> {
   var delegate = TableViewDelegate(numberOfSectionsInTableView: () {
     return 1;
   }, numberOfRowsInSection: (int section) {
-    return rowList[section].length;
+    return customerList.length;
   }, heightForHeaderInSection: (int section) {
-    return 20;
+    return 0;
   }, heightForRowAtIndexPath: (IndexPath indexPath) {
     return 40;
   }, viewForHeaderInSection: (BuildContext context, int section) {
@@ -83,7 +66,7 @@ class searchCustomerState extends State<searchCustomerWidget> {
   }, cellForRowAtIndexPath: (BuildContext context, IndexPath indexPath) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pop(rowList[indexPath.section][indexPath.row]);
+        Navigator.of(context).pushNamed(searchCustomerInfo.route);
       },
       child: Container(
         color: Colors.white,
@@ -96,7 +79,7 @@ class searchCustomerState extends State<searchCustomerWidget> {
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
-                  rowList[indexPath.section][indexPath.row],
+                  customerList[indexPath.row].enName,
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey,
@@ -130,9 +113,17 @@ class searchCustomerState extends State<searchCustomerWidget> {
             );
           } else {
             // data loaded:
+            List<dynamic> tags;
+
             final androidDeviceInfo = snapshot.data;
-            Map<String, dynamic> map;
-            if (androidDeviceInfo != "") map = jsonDecode(androidDeviceInfo!);
+            if (androidDeviceInfo != "") {
+              Map<String, dynamic> parsed = jsonDecode(androidDeviceInfo!);
+              for (var v in parsed.values) {
+                Customer newCustomer = Customer.fromJson(v);
+                customerList.add(newCustomer);
+              }
+              String hello = "";
+            }
 
             return Center(
               child: TableView(

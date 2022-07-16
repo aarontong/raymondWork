@@ -14,11 +14,15 @@ class inventoryModule {
       Inventory inventory, String barCode) async {
     DatabaseReference ref = FirebaseDatabase.instance.ref("Inventory");
     ref = ref.child(barCode);
+    String productCode = inventory.productCode;
+    String serialCode = inventory.serialCode;
+    String description = inventory.description;
+
     await ref.set({
-      "productCode": inventory.productCode,
-      "serialCode": inventory.serialCode,
-      "barCode": inventory.barCode,
-      "description": inventory.description,
+      "\"productCode\"": "\"$productCode\"",
+      "\"serialCode\"": "\"$serialCode\"",
+      "\"barCode\"": "\"$barCode\"",
+      "\"description\"": "\"$description\"",
     });
   }
 }
