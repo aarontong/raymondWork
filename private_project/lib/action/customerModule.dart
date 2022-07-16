@@ -21,18 +21,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../model/customer.dart';
 
 class customerModule {
+  late Customer currentSelectedCustomer;
+
   static late int timestamp1;
   static String customerListJsonString = "";
   late addNewCustomerState state;
-  late searchCustomerState state1;
 
   static final customerModule _customerModule = customerModule._internal();
   factory customerModule(addNewCustomerState state) {
     _customerModule.state = state;
     return _customerModule;
   }
-  factory customerModule.searchCustomer(searchCustomerState state) {
-    _customerModule.state1 = state;
+  factory customerModule.searchCustomer() {
     return _customerModule;
   }
   customerModule._internal();

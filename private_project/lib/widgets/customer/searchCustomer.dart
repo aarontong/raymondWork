@@ -64,8 +64,13 @@ class searchCustomerState extends State<searchCustomerWidget> {
       child: Text(headerList[section]),
     );
   }, cellForRowAtIndexPath: (BuildContext context, IndexPath indexPath) {
+    String engName = customerList[indexPath.row].enName;
+    String mobileNumber = customerList[indexPath.row].mobileNumber;
+
     return InkWell(
       onTap: () {
+        customerModule cm = customerModule.searchCustomer();
+        cm.currentSelectedCustomer = customerList[indexPath.row];
         Navigator.of(context).pushNamed(searchCustomerInfo.route);
       },
       child: Container(
@@ -79,7 +84,7 @@ class searchCustomerState extends State<searchCustomerWidget> {
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
-                  customerList[indexPath.row].enName,
+                  "$engName\tTel:$mobileNumber",
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey,
@@ -101,7 +106,8 @@ class searchCustomerState extends State<searchCustomerWidget> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    customerModule cm = customerModule.searchCustomer(this);
+    customerModule cm = customerModule.searchCustomer();
+    customerList = [];
     return Scaffold(
       body: FutureBuilder<String>(
         future: cm.getCachedContent(),
