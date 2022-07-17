@@ -153,19 +153,21 @@ class searchCustomerState extends State<searchCustomerWidget> {
                 ),
               ),*/
               DataTable(
+                
                 columns: const <DataColumn>[
                   DataColumn(
                     label: Text(
-                      'English Name:',
+                      'English Name\tMobile Number',
                       style: TextStyle(fontStyle: FontStyle.italic),
                     ),
                   ),
                 ],
+                
                 rows: List.generate(
                   customerList.length,
                   (index) => DataRow(
                     cells: <DataCell>[
-                      DataCell(Text(customerList[index].enName), onTap: () {
+                      DataCell(Text(customerList[index].enName + "\t" + customerList[index].mobileNumber ), onTap: () {
                         customerModule cm = customerModule.searchCustomer();
                         cm.currentSelectedCustomer = customerList[index];
                         Navigator.of(context)
