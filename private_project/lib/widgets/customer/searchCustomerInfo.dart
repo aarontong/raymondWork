@@ -17,6 +17,10 @@ class searchCustomerInfo extends StatelessWidget {
     String chName = currentCustomer.chName;
     String mobileNumber = currentCustomer.mobileNumber;
     String email = currentCustomer.email;
+    String profession = currentCustomer.profession;
+    String age = currentCustomer.age;
+    String address = currentCustomer.homeAddress;
+    String profileImageURL = currentCustomer.profileImageURL;
 
     // TODO: implement build
     return Scaffold(
@@ -44,11 +48,21 @@ class searchCustomerInfo extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Row(
-                children: [Text("enName:\t"), Text("$enName")],
+                children: [Text("Profession:\t"), Text("$profession")],
               ),
               SizedBox(height: 10),
               Row(
-                children: [Text("enName:\t"), Text("$enName")],
+                children: [Text("Age:\t"), Text("$age")],
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [Text("Home Address:\t"), Text("$address")],
+              ),
+              SizedBox(height: 10),
+              Image.network(
+                currentCustomer.profileImageURL,
+                width: 150,
+                height: 150,
               )
             ],
           )),

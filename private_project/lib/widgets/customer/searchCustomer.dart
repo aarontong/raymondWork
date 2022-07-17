@@ -132,15 +132,50 @@ class searchCustomerState extends State<searchCustomerWidget> {
             }
 
             return Center(
-              child: TableView(
-                delegate: delegate,
-                scrollbar: TableViewHeaderScrollBar(
-                  headerTitleList: headerList,
-                  itemHeight: 20,
-                  startAlignment: Alignment.centerRight,
+                child: Column(children: [
+              /*
+              Card(
+                child: new ListTile(
+                  leading: new Icon(Icons.search),
+                  title: new TextField(
+                      
+                      decoration: new InputDecoration(
+                          hintText: 'Search', border: InputBorder.none),
+                      onChanged: (value) {
+                        setState(() {});
+                      }),
+                  trailing: new IconButton(
+                    icon: new Icon(Icons.cancel),
+                    onPressed: () {
+                      setState(() {});
+                    },
+                  ),
+                ),
+              ),*/
+              DataTable(
+                columns: const <DataColumn>[
+                  DataColumn(
+                    label: Text(
+                      'English Name:',
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  ),
+                ],
+                rows: List.generate(
+                  customerList.length,
+                  (index) => DataRow(
+                    cells: <DataCell>[
+                      DataCell(Text(customerList[index].enName), onTap: () {
+                        customerModule cm = customerModule.searchCustomer();
+                        cm.currentSelectedCustomer = customerList[index];
+                        Navigator.of(context)
+                            .pushNamed(searchCustomerInfo.route);
+                      }),
+                    ],
+                  ),
                 ),
               ),
-            );
+            ]));
           }
         },
       ),
