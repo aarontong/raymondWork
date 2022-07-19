@@ -21,7 +21,10 @@ class searchCustomerWidget extends StatefulWidget {
 }
 
 class searchCustomerState extends State<searchCustomerWidget> {
+  static String searchWord = "";
   static List<Customer> customerList = [];
+  static List<Customer> filteredCustomerList = [];
+  static TextEditingController searchController = TextEditingController();
   static List<String> headerList = [
     "A",
     "B",
@@ -47,65 +50,10 @@ class searchCustomerState extends State<searchCustomerWidget> {
 
   final String title;
   searchCustomerState({Key? key, required this.title});
-  var delegate = TableViewDelegate(numberOfSectionsInTableView: () {
-    return 1;
-  }, numberOfRowsInSection: (int section) {
-    return customerList.length;
-  }, heightForHeaderInSection: (int section) {
-    return 0;
-  }, heightForRowAtIndexPath: (IndexPath indexPath) {
-    return 40;
-  }, viewForHeaderInSection: (BuildContext context, int section) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      padding: EdgeInsets.only(left: 10),
-      color: Color.fromRGBO(220, 220, 220, 1),
-      height: 20,
-      child: Text(headerList[section]),
-    );
-  }, cellForRowAtIndexPath: (BuildContext context, IndexPath indexPath) {
-    String engName = customerList[indexPath.row].enName;
-    String mobileNumber = customerList[indexPath.row].mobileNumber;
-
-    return InkWell(
-      onTap: () {
-        customerModule cm = customerModule.searchCustomer();
-        cm.currentSelectedCustomer = customerList[indexPath.row];
-        Navigator.of(context).pushNamed(searchCustomerInfo.route);
-      },
-      child: Container(
-        color: Colors.white,
-        height: 40,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                alignment: Alignment.centerLeft,
-                padding: EdgeInsets.only(left: 10),
-                child: Text(
-                  "$engName\tTel:$mobileNumber",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-            ),
-            Divider(
-              indent: 10,
-              endIndent: 10,
-              height: 1,
-            ),
-          ],
-        ),
-      ),
-    );
-  });
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
     customerModule cm = customerModule.searchCustomer();
     customerList = [];
     return Scaffold(
@@ -130,30 +78,42 @@ class searchCustomerState extends State<searchCustomerWidget> {
               }
               String hello = "";
             }
-
-            return Center(
-                child: Column(children: [
-              /*
+            if (searchWord == "") {
+              filteredCustomerList = customerList;
+            } else {
+              filteredCustomerList = customerList
+                  .where((Customer cust) =>
+                      cust.mobileNumber.startsWith(searchWord))
+                  .toList();
+            }
+            return SingleChildScrollView(
+                child: Center(
+                    child: Column(children: [
               Card(
                 child: new ListTile(
                   leading: new Icon(Icons.search),
                   title: new TextField(
-                      
+                      controller: searchController,
                       decoration: new InputDecoration(
-                          hintText: 'Search', border: InputBorder.none),
+                          hintText: 'Search Name or Phone Number',
+                          border: InputBorder.none),
                       onChanged: (value) {
-                        setState(() {});
+                        setState(() {
+                          searchWord = value;
+                        });
                       }),
                   trailing: new IconButton(
                     icon: new Icon(Icons.cancel),
                     onPressed: () {
-                      setState(() {});
+                      setState(() {
+                        searchController.text = "";
+                        searchWord = "";
+                      });
                     },
                   ),
                 ),
-              ),*/
+              ),
               DataTable(
-                
                 columns: const <DataColumn>[
                   DataColumn(
                     label: Text(
@@ -162,14 +122,18 @@ class searchCustomerState extends State<searchCustomerWidget> {
                     ),
                   ),
                 ],
-                
                 rows: List.generate(
-                  customerList.length,
+                  filteredCustomerList.length,
                   (index) => DataRow(
                     cells: <DataCell>[
-                      DataCell(Text(customerList[index].enName + "\t" + customerList[index].mobileNumber ), onTap: () {
+                      DataCell(
+                          Text(filteredCustomerList[index].enName +
+                              "\t" +
+                              filteredCustomerList[index].mobileNumber),
+                          onTap: () {
                         customerModule cm = customerModule.searchCustomer();
-                        cm.currentSelectedCustomer = customerList[index];
+                        cm.currentSelectedCustomer =
+                            filteredCustomerList[index];
                         Navigator.of(context)
                             .pushNamed(searchCustomerInfo.route);
                       }),
@@ -177,7 +141,7 @@ class searchCustomerState extends State<searchCustomerWidget> {
                   ),
                 ),
               ),
-            ]));
+            ])));
           }
         },
       ),
