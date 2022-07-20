@@ -48,7 +48,6 @@ class customerListState extends State<customerListPage> {
   @override
   Widget build(BuildContext context) {
     customerModule cm = customerModule.searchCustomer();
-
     // TODO: implement build
     return new Scaffold(
       body: FutureBuilder<String>(
@@ -107,34 +106,61 @@ class customerListState extends State<customerListPage> {
                   ),
                 ),
               ),
-              DataTable(
-                columns: const <DataColumn>[
-                  DataColumn(
-                    label: Text(
-                      'English Name\tMobile Number',
-                      style: TextStyle(fontStyle: FontStyle.italic),
-                    ),
-                  ),
-                ],
-                rows: List.generate(
-                  filteredCustomerList.length,
-                  (index) => DataRow(
-                    cells: <DataCell>[
-                      DataCell(
-                          Text(filteredCustomerList[index].enName +
-                              "\t" +
+              ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: filteredCustomerList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ExpansionTile(
+                      tilePadding: EdgeInsets.all(10),
+                      title: Text(filteredCustomerList[index].enName +
+                          "\t" +
+                          filteredCustomerList[index].mobileNumber),
+                      children: [
+                        ListTile(
+                          title: Text("English Name:\t" +
+                              filteredCustomerList[index].enName),
+                        ),
+                        SizedBox(height: 10),
+                        ListTile(
+                          title: Text("Chinese Name:\t" +
+                              filteredCustomerList[index].chName),
+                        ),
+                        SizedBox(height: 10),
+                        ListTile(
+                          title: Text("Mobile:\t" +
                               filteredCustomerList[index].mobileNumber),
-                          onTap: () {
-                        customerModule cm = customerModule.searchCustomer();
-                        cm.currentSelectedCustomer =
-                            filteredCustomerList[index];
-                        Navigator.of(context)
-                            .pushNamed(searchCustomerInfo.route);
-                      }),
-                    ],
-                  ),
-                ),
-              ),
+                        ),
+                        SizedBox(height: 10),
+                        ListTile(
+                          title: Text(
+                              "Email:\t" + filteredCustomerList[index].email),
+                        ),
+                        SizedBox(height: 10),
+                        ListTile(
+                          title: Text("Profession:\t" +
+                              filteredCustomerList[index].profession),
+                        ),
+                        SizedBox(height: 10),
+                        ListTile(
+                          title:
+                              Text("Age:\t" + filteredCustomerList[index].age),
+                        ),
+                        SizedBox(height: 10),
+                        ListTile(
+                          title: Text("Home Address:\t" +
+                              filteredCustomerList[index].homeAddress),
+                        ),
+                        SizedBox(height: 10),
+                        Image.network(
+                          filteredCustomerList[index].profileImageURL,
+                          width: 150,
+                          height: 150,
+                        )
+                      ],
+                    );
+                  }),
             ])));
           }
         },
