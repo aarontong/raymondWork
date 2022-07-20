@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:private_project/widgets/customer/customerListPage.dart';
+import 'package:private_project/widgets/searchRelatedPerson.dart';
 
 class relatedPersonField extends StatefulWidget {
   static TextEditingController relatedPersonController =
@@ -17,12 +19,16 @@ class relatedPersonState extends State<relatedPersonField> {
         hintText: "Related Person:",
         border: UnderlineInputBorder(),
         suffixIcon: IconButton(
-          onPressed: relatedPersonField.relatedPersonController.clear,
+          onPressed: pushToSearchPage,
           icon: Icon(Icons.search),
         ),
       ),
       keyboardType: TextInputType.emailAddress,
       controller: relatedPersonField.relatedPersonController,
     );
+  }
+
+  void pushToSearchPage() {
+    Navigator.pushNamed(context, searchRelatedPerson.route);
   }
 }

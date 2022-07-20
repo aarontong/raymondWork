@@ -23,7 +23,6 @@ class addNewCustomerWidget extends StatefulWidget {
   addNewCustomerWidget({Key? key, required this.title}) : super(key: key);
   final String title;
   static String route = "/addNewCustomerWidget";
-
   @override
   State<StatefulWidget> createState() => addNewCustomerState();
 }

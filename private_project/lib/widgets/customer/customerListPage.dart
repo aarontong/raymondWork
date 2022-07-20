@@ -6,12 +6,13 @@ import 'package:private_project/widgets/customer/searchCustomerInfo.dart';
 import '../../model/customer.dart';
 
 class customerListPage extends StatefulWidget {
-  const customerListPage({Key? key, required this.title}) : super(key: key);
-  final String title;
+  final bool multipleSelection;
+  const customerListPage({Key? key, required this.multipleSelection})
+      : super(key: key);
   static String route = "/customerListPage";
 
   @override
-  State<customerListPage> createState() => customerListState(title: title);
+  State<customerListPage> createState() => customerListState();
 }
 
 class customerListState extends State<customerListPage> {
@@ -41,9 +42,6 @@ class customerListState extends State<customerListPage> {
     "Y",
     "Z"
   ];
-
-  final String title;
-  customerListState({Key? key, required this.title});
 
   @override
   Widget build(BuildContext context) {

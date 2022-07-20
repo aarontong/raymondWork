@@ -23,7 +23,9 @@ class searchCustomerState extends State<searchCustomerWidget> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: customerListPage(title: title),
+      body: customerListPage(
+        multipleSelection: false,
+      ),
       appBar: AppBar(
         title: Text(this.title),
         actions: [
