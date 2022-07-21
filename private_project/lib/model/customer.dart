@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-class Customer extends ChangeNotifier {
+class Customer {
   late String chName;
   late String enName;
   late String mobileNumber;
@@ -48,13 +48,4 @@ class Customer extends ChangeNotifier {
         'profession': profession,
         'profileImageURL': profileImageURL,
       };
-  void addRelatedPeople(Customer customer) {
-    this.relatedPerson.add(customer);
-    notifyListeners();
-  }
-
-  void removeRelatedPeople(Customer customer) {
-    this.relatedPerson.remove(customer);
-    notifyListeners();
-  }
 }
