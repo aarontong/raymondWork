@@ -188,14 +188,15 @@ class customerListState extends State<customerListPage> {
     setState(() {
       if (isSelected) {
         selectedCustomerList.add(itemValue);
+        cm.currentSelectedCustomer.addRelatedPeople(itemValue);
       } else {
         selectedCustomerList.remove(itemValue);
+        cm.currentSelectedCustomer.removeRelatedPeople(itemValue);
       }
     });
   }
 
   Future<bool> _requestPop() {
-    cm.relatedPerson = [];
     filteredCustomerList = [];
     customerList = [];
     selectedCustomerList = [];

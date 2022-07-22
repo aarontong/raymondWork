@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-class Customer {
+class Customer extends ChangeNotifier {
   late String chName;
   late String enName;
   late String mobileNumber;
@@ -14,17 +14,7 @@ class Customer {
   late File profileImage;
   late String profileImageURL;
   late List<Customer> relatedPerson = [];
-  Customer(
-      {Key? key,
-      required this.chName,
-      required this.enName,
-      required this.mobileNumber,
-      required this.email,
-      required this.age,
-      required this.gender,
-      required this.homeAddress,
-      required this.profession,
-      required this.profileImage});
+  Customer({Key? key});
 
   Customer.fromJson(Map<String, dynamic> json)
       : chName = json['chName'],
@@ -48,4 +38,13 @@ class Customer {
         'profession': profession,
         'profileImageURL': profileImageURL,
       };
+  void addRelatedPeople(Customer customer) {
+    this.relatedPerson.add(customer);
+    notifyListeners();
+  }
+
+  void removeRelatedPeople(Customer customer) {
+    this.relatedPerson.remove(customer);
+    notifyListeners();
+  }
 }

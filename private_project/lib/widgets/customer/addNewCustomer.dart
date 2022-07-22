@@ -18,6 +18,7 @@ import 'package:private_project/widgets/customer/insertField/mobileFIeld.dart';
 import 'package:private_project/widgets/customer/insertField/nameCardImage.dart';
 import 'package:private_project/widgets/customer/insertField/professionFIeld.dart';
 import 'package:private_project/widgets/customer/insertField/relatedPersonField.dart';
+import 'package:provider/provider.dart';
 
 class addNewCustomerWidget extends StatefulWidget {
   addNewCustomerWidget({Key? key, required this.title}) : super(key: key);
@@ -28,52 +29,75 @@ class addNewCustomerWidget extends StatefulWidget {
 }
 
 class addNewCustomerState extends State<addNewCustomerWidget> {
+  static Customer newCustomer = Customer();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new Scaffold(
-        body: Padding(
-            padding: EdgeInsets.all(10),
-            child: SingleChildScrollView(
-                child: Form(
-                    autovalidateMode: AutovalidateMode.always,
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.all(10), child: enNameField()),
-                        Padding(
-                            padding: EdgeInsets.all(10), child: chNameField()),
-                        Padding(padding: EdgeInsets.all(10), child: ageField()),
-                        Padding(
-                            padding: EdgeInsets.all(10), child: emailField()),
-                        Padding(
-                            padding: EdgeInsets.all(10), child: mobileField()),
-                        Padding(
-                            padding: EdgeInsets.all(10),
-                            child: professionField()),
-                        Padding(
-                            padding: EdgeInsets.all(10),
-                            child: homeAddressField()),
-                        Padding(
-                            padding: EdgeInsets.all(10), child: genderField()),
-                        Padding(
-                            padding: EdgeInsets.all(10),
-                            child: relatedPersonField()),
-                        Padding(
-                            padding: EdgeInsets.all(10),
-                            child: nameCardImageField()),
-                        Padding(
-                            padding: EdgeInsets.all(10),
-                            child: addCustomerButton(
-                              pressedButton: submitButtonPressed,
-                            )),
-                      ],
-                    )))),
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
-        ));
+    newCustomer = Customer();
+    customerModule cm = customerModule.searchCustomer();
+    cm.currentSelectedCustomer = newCustomer;
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<Customer>(
+          create: (context) {
+            return newCustomer;
+          },
+        ),
+      ],
+      child: Builder(builder: (BuildContext context) {
+        BuildContext rootContext = context;
+        return new Scaffold(
+            body: Padding(
+                padding: EdgeInsets.all(10),
+                child: SingleChildScrollView(
+                    child: Form(
+                        autovalidateMode: AutovalidateMode.always,
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                                padding: EdgeInsets.all(10),
+                                child: enNameField()),
+                            Padding(
+                                padding: EdgeInsets.all(10),
+                                child: chNameField()),
+                            Padding(
+                                padding: EdgeInsets.all(10), child: ageField()),
+                            Padding(
+                                padding: EdgeInsets.all(10),
+                                child: emailField()),
+                            Padding(
+                                padding: EdgeInsets.all(10),
+                                child: mobileField()),
+                            Padding(
+                                padding: EdgeInsets.all(10),
+                                child: professionField()),
+                            Padding(
+                                padding: EdgeInsets.all(10),
+                                child: homeAddressField()),
+                            Padding(
+                                padding: EdgeInsets.all(10),
+                                child: genderField()),
+                            Padding(
+                                padding: EdgeInsets.all(10),
+                                child: relatedPersonField()),
+                            Padding(
+                                padding: EdgeInsets.all(10),
+                                child: nameCardImageField()),
+                            Padding(
+                                padding: EdgeInsets.all(10),
+                                child: addCustomerButton(
+                                  pressedButton: submitButtonPressed,
+                                )),
+                          ],
+                        )))),
+            appBar: AppBar(
+              // Here we take the value from the MyHomePage object that was created by
+              // the App.build method, and use it to set our appbar title.
+              title: Text(widget.title),
+            ));
+      }),
+    );
   }
 
   Future<void> _showAlertDialog() async {
@@ -116,16 +140,16 @@ class addNewCustomerState extends State<addNewCustomerWidget> {
       _showAlertDialog();
     } else {
       customerModule cm = customerModule(this);
-      Customer newCustomer = new Customer(
-          chName: chNameText,
-          enName: enNameText,
-          mobileNumber: mobileText,
-          email: emailText,
-          age: ageText,
-          gender: genderField.gender,
-          homeAddress: homeAddressText,
-          profession: professionFieldText,
-          profileImage: profileFilePath);
+      newCustomer.chName = chNameText;
+      newCustomer.enName = enNameText;
+      newCustomer.mobileNumber = mobileText;
+      newCustomer.email = emailText;
+      newCustomer.mobileNumber = mobileText;
+      newCustomer.age = ageText;
+      newCustomer.gender = genderField.gender;
+      newCustomer.homeAddress = homeAddressText;
+      newCustomer.profession = professionFieldText;
+      newCustomer.profileImage = profileFilePath;
       cm.addNewCustomer(newCustomer, mobileText);
     }
   }

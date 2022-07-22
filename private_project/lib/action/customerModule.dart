@@ -20,9 +20,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/customer.dart';
 
-class customerModule extends ChangeNotifier {
+class customerModule {
   late Customer currentSelectedCustomer;
-  late List<Customer> relatedPerson = [];
 
   static late int timestamp1;
   static String customerListJsonString = "";
@@ -121,15 +120,6 @@ class customerModule extends ChangeNotifier {
         print(error);
         return;
       }
-    }
-    void addRelatedPeople(Customer customer) {
-      this.relatedPerson.add(customer);
-      notifyListeners();
-    }
-
-    void removeRelatedPeople(Customer customer) {
-      this.relatedPerson.remove(customer);
-      notifyListeners();
     }
   }
 }
