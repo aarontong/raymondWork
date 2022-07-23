@@ -31,7 +31,8 @@ class searchCustomerState extends State<searchCustomerWidget> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, addNewCustomerWidget.route);
+                Navigator.pushNamed(context, addNewCustomerWidget.route)
+                    .then((_) => setState(() {}));
               },
               icon: Icon(Icons.add))
         ],

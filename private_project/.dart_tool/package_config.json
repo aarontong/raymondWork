@@ -176,6 +176,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_is_emulator",
+      "rootUri": "file:///Users/aarontong/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_is_emulator-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "1.19"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///Users/aarontong/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-2.0.1",
       "packageUri": "lib/",
@@ -536,7 +542,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-07-23T03:29:09.539444Z",
+  "generated": "2022-07-23T10:34:08.557865Z",
   "generator": "pub",
   "generatorVersion": "2.17.5"
 }

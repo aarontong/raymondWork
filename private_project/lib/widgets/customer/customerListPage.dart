@@ -67,7 +67,8 @@ class customerListState extends State<customerListPage> {
 
                 final androidDeviceInfo = snapshot.data;
                 if (androidDeviceInfo != "") {
-                  Map<String, dynamic> parsed = jsonDecode(androidDeviceInfo!);
+                  customerList = [];
+                  Map parsed = jsonDecode(androidDeviceInfo!);
                   for (var v in parsed.values) {
                     Customer newCustomer = Customer.fromJson(v);
                     customerList.add(newCustomer);

@@ -121,6 +121,27 @@ class addNewCustomerState extends State<addNewCustomerWidget> {
         });
   }
 
+  Future<void> _showSuccessDialog() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          Widget okAction = TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          );
+
+          return AlertDialog(
+            title: Text("Input Success"),
+            content: Text("Customer info has been saved"),
+            actions: [
+              okAction,
+            ],
+          );
+        });
+  }
+
   Future<void> submitButtonPressed() async {
     String emailText = emailField.emailFieldController.text;
     String mobileText = mobileField.mobileFieldController.text;
@@ -150,7 +171,8 @@ class addNewCustomerState extends State<addNewCustomerWidget> {
       newCustomer.homeAddress = homeAddressText;
       newCustomer.profession = professionFieldText;
       newCustomer.profileImage = profileFilePath;
-      cm.addNewCustomer(newCustomer, mobileText);
+      await cm.addNewCustomer(newCustomer, mobileText);
+      _showSuccessDialog().then((value) => Navigator.pop(context));
     }
   }
 }

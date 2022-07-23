@@ -6,10 +6,48 @@
   <component name="ChangeListManager">
     <list default="true" id="0872dee9-5333-4c39-a312-9a5f4d430961" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/action/customerModule.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/action/customerModule.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/model/customer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/customer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/App Thinning Size Report.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-1087B2D7-DA52-4B24-9DA7-7901FA41B288.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-1ABDB53F-D98A-4856-A07B-75D60AE9A59D.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-297FB110-1BEF-40A0-8EAE-94C5BEC6403C.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-2AAEE796-E7B3-47EE-8BD1-F05228310635.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-3E5A41BA-EFC9-42E5-9F73-CFEDF81B6578.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-4135E0A7-E5A1-48F3-B0E0-2FCDA3FDBFE3.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-42EBFB57-0519-46D1-8BC4-5A5BE1EAEF2F.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-489E388C-CD12-419D-AD94-9C6A671E700E.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-4CB854E7-DC8C-4F3C-8C62-5B0EC693ED92.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-5595A351-BC65-49FC-98CA-16BD92629BEB.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-583E6CEB-3719-4B2C-AC6C-539E0471066C.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-5977D626-1352-41A3-BB8E-F34AC612CF5D.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-63B2A7E1-14AD-43DE-A5B9-28B4858E25DE.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-6B2224BF-68A7-4921-A3E9-C9EA3CF7B0D4.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-6D4ADF6E-D5CB-4B5A-B1B5-A4F5CA819511.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-7B66C33F-D1BA-4284-8C26-1CB0F5994BDA.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-94F70B6F-97D0-40DC-8BE1-277B04E2990D.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-9F67D60D-7A0B-446B-BBCD-05F3A8778B05.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-A04024CC-EC48-4350-8A4D-D419E1BD7A98.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-AC3C2F1E-E5CB-4909-9A9E-0FF0ACC458AA.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-B2DAD84B-3095-42FD-B3F7-8DC10D646CF8.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-CB695440-1F3E-4123-BB07-55A23C0C7227.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-E47F01D0-741F-409D-8622-B85042E189C2.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-E6D74DE0-89B6-4139-932E-E16DCE29983D.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-E75D6763-4A54-4A9F-B2BE-6F889CD40EFC.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-EC532190-4FB4-4521-BB8E-2A3304F12DE9.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-F16C4A7D-E21A-42C5-AD29-BAAD5D891705.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project-FC99B9FE-9551-4668-A22D-9D7D9B4C4F53.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/Apps/private_project.ipa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/DistributionSummary.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/ExportOptions.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner 2022-07-23 12-00-54/app-thinning.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/widgets/customer/addNewCustomer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/customer/addNewCustomer.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/customer/insertField/nameCardImage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/customer/insertField/nameCardImage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/customer/customerListPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/customer/customerListPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/customer/insertField/addCustomerButton.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/customer/insertField/addCustomerButton.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/customer/searchCustomer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/customer/searchCustomer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/ephemeral/Flutter-Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/ephemeral/Flutter-Generated.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/ephemeral/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/ephemeral/flutter_export_environment.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/private_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/private_project.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

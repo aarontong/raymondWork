@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_database/firebase_database.dart';
@@ -50,17 +51,17 @@ class customerModule {
     String gender = newCustomer.gender;
     String profileImageURL = newCustomer.profileImageURL;
 
-    ref = ref.child("\"$mobileText\"");
+    ref = ref.child("$mobileText");
     await ref.set({
-      "\"enName\"": "\"$enName\"",
-      "\"chName\"": "\"$chName\"",
-      "\"age\"": "\"$age\"",
-      "\"address\"": "\"$homeAddress\"",
-      "\"email\"": "\"$email\"",
-      "\"mobile\"": "\"$mobileNumber\"",
-      "\"profession\"": "\"$profession\"",
-      "\"gender\"": "\"$gender\"",
-      "\"profileImageURL\"": "\"$profileImageURL\""
+      "enName": "$enName",
+      "chName": "$chName",
+      "age": "$age",
+      "address": "$homeAddress",
+      "email": "$email",
+      "mobile": "$mobileNumber",
+      "profession": "$profession",
+      "gender": "$gender",
+      "profileImageURL": "$profileImageURL"
     });
     updateCustomerListCache();
   }
@@ -69,16 +70,18 @@ class customerModule {
     DatabaseReference ref = FirebaseDatabase.instance.ref("Client");
     final snapshot = await ref.get();
     if (snapshot.exists) {
-      customerListJsonString = snapshot.value.toString();
+      Map map = snapshot.value as Map;
+      customerListJsonString = json.encode(map);
       String fileName = "customerListCache.json";
       var dir = await getTemporaryDirectory();
       File file = File(dir.path + "/" + fileName);
-      file.writeAsStringSync(snapshot.value.toString(),
+      file.writeAsStringSync(customerListJsonString,
           flush: true, mode: FileMode.write);
       DateTime nowDate = DateTime.now();
       timestamp1 = nowDate.millisecondsSinceEpoch;
       final prefs = await SharedPreferences.getInstance();
       await prefs.setInt("customerListCacheTime", timestamp1);
+      String snapString = customerListJsonString;
       print(snapshot.value);
     } else {
       print('No data available.');
