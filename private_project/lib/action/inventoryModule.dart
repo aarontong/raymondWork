@@ -19,10 +19,10 @@ class inventoryModule {
     String description = inventory.description;
 
     await ref.set({
-      "\"productCode\"": "\"$productCode\"",
-      "\"serialCode\"": "\"$serialCode\"",
-      "\"barCode\"": "\"$barCode\"",
-      "\"description\"": "\"$description\"",
+      "productCode": "$productCode",
+      "serialCode": "$serialCode",
+      "barCode": "$barCode",
+      "description": "$description",
     });
   }
 }
