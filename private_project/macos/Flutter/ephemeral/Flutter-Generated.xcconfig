@@ -2,13 +2,10 @@
 FLUTTER_ROOT=/Users/aarontong/Documents/flutter
 FLUTTER_APPLICATION_PATH=/Users/aarontong/raymondWork/private_project
 COCOAPODS_PARALLEL_CODE_SIGN=true
-FLUTTER_TARGET=/Users/aarontong/raymondWork/private_project/lib/main.dart
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.0.0
 FLUTTER_BUILD_NUMBER=1
-DART_DEFINES=RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ==
 DART_OBFUSCATION=false
-EXTRA_FRONT_END_OPTIONS=--no-sound-null-safety
-TRACK_WIDGET_CREATION=true
+TRACK_WIDGET_CREATION=false
 TREE_SHAKE_ICONS=false
-PACKAGE_CONFIG=/Users/aarontong/raymondWork/private_project/.dart_tool/package_config.json
+PACKAGE_CONFIG=.dart_tool/package_config.json
