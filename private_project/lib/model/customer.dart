@@ -13,6 +13,7 @@ class Customer extends ChangeNotifier {
   late String age;
   late File profileImage;
   late String profileImageURL;
+  late String relatedPersonString;
   late List<Customer> relatedPerson = [];
   Customer({Key? key});
 
@@ -25,7 +26,8 @@ class Customer extends ChangeNotifier {
         gender = json["gender"],
         homeAddress = json["address"],
         profession = json["profession"],
-        profileImageURL = json["profileImageURL"];
+        profileImageURL = json["profileImageURL"],
+        relatedPersonString = json["relatedPerson"];
 
   Map<String, dynamic> toJson() => {
         "chName": chName,
@@ -37,6 +39,7 @@ class Customer extends ChangeNotifier {
         "address": homeAddress,
         "profession": profession,
         "profileImageURL": profileImageURL,
+        "relatedPersonString": relatedPersonString
       };
   void addRelatedPeople(Customer customer) {
     this.relatedPerson.add(customer);

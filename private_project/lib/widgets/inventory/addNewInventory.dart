@@ -4,7 +4,6 @@ import 'package:private_project/widgets/inventory/insertField/addInventoryButton
 import 'package:private_project/widgets/inventory/insertField/barCodeField.dart';
 import 'package:private_project/widgets/inventory/insertField/descriptionFIeld.dart';
 import 'package:private_project/widgets/inventory/insertField/productCodeField.dart';
-import 'package:private_project/widgets/inventory/insertField/serialCodeField.dart';
 
 import '../../model/inventory.dart';
 
@@ -38,10 +37,6 @@ class addNewInventoryState extends State<addNewInventoryWidget> {
               ),
               new Padding(
                 padding: EdgeInsets.all(10),
-                child: serialCodeField(),
-              ),
-              new Padding(
-                padding: EdgeInsets.all(10),
                 child: barCodeField(),
               ),
               new Padding(
@@ -64,20 +59,17 @@ class addNewInventoryState extends State<addNewInventoryWidget> {
     String description = descriptionFieldState.descriptionFieldController.text;
     String barCode = barCodeFieldState.barCodeFieldController.text;
     String productCode = productCodeFieldState.productCodeFieldController.text;
-    String serialCode = serialCodeFieldState.serialCodeFieldController.text;
 
-    if (description == "" ||
-        barCode == "" ||
-        productCode == "" ||
-        serialCode == "") {
+    if (description == "" || barCode == "" || productCode == "") {
       _showAlertDialog();
     } else {
       Inventory inventory = new Inventory(
-          serialCode: serialCode,
           barCode: barCode,
           productCode: productCode,
-          description: description);
+          description: description,
+          importTime: DateTime.now());
       inventoryModule.addNewInventory(inventory, barCode);
+      _showSuccessDialog().then((value) => Navigator.pop(context));
     }
   }
 
@@ -95,6 +87,27 @@ class addNewInventoryState extends State<addNewInventoryWidget> {
           return AlertDialog(
             title: Text("Input Missing"),
             content: Text("Please enter data in all fields"),
+            actions: [
+              okAction,
+            ],
+          );
+        });
+  }
+
+  Future<void> _showSuccessDialog() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          Widget okAction = TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          );
+
+          return AlertDialog(
+            title: Text("Input Success"),
+            content: Text("Inventory info has been saved"),
             actions: [
               okAction,
             ],

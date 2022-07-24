@@ -50,7 +50,7 @@ class customerModule {
     String profession = newCustomer.profession;
     String gender = newCustomer.gender;
     String profileImageURL = newCustomer.profileImageURL;
-
+    String relatedPersonString = newCustomer.relatedPersonString;
     ref = ref.child("$mobileText");
     await ref.set({
       "enName": "$enName",
@@ -61,7 +61,8 @@ class customerModule {
       "mobile": "$mobileNumber",
       "profession": "$profession",
       "gender": "$gender",
-      "profileImageURL": "$profileImageURL"
+      "profileImageURL": "$profileImageURL",
+      "relatedPerson": "$relatedPersonString"
     });
     updateCustomerListCache();
   }

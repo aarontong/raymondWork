@@ -174,6 +174,12 @@ class customerListState extends State<customerListPage> {
                                   filteredCustomerList[index].homeAddress),
                             ),
                             SizedBox(height: 10),
+                            ListTile(
+                              title: Text("Related Person:\t" +
+                                  filteredCustomerList[index]
+                                      .relatedPersonString),
+                            ),
+                            SizedBox(height: 10),
                             Image.network(
                               filteredCustomerList[index].profileImageURL,
                               width: 150,

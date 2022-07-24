@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:intl/intl.dart';
 
 import '../model/inventory.dart';
 
@@ -15,13 +16,14 @@ class inventoryModule {
     DatabaseReference ref = FirebaseDatabase.instance.ref("Inventory");
     ref = ref.child(barCode);
     String productCode = inventory.productCode;
-    String serialCode = inventory.serialCode;
     String description = inventory.description;
+    String importTime =
+        DateFormat('yyyy-MM-dd – kk:mm').format(inventory.importTime);
 
     await ref.set({
       "productCode": "$productCode",
-      "serialCode": "$serialCode",
       "barCode": "$barCode",
+      "importTime": "$importTime",
       "description": "$description",
     });
   }
