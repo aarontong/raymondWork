@@ -17,6 +17,8 @@ class customerListPage extends StatefulWidget {
 
 class customerListState extends State<customerListPage> {
   late customerModule cm;
+  bool refetchOriginalList = true;
+
   static String searchWord = "";
   static List<Customer> selectedCustomerList = [];
 
@@ -64,24 +66,25 @@ class customerListState extends State<customerListPage> {
               } else {
                 // data loaded:
                 List<dynamic> tags;
-
-                final androidDeviceInfo = snapshot.data;
-                if (androidDeviceInfo != "") {
-                  customerList = [];
-                  Map parsed = jsonDecode(androidDeviceInfo!);
-                  for (var v in parsed.values) {
-                    Customer newCustomer = Customer.fromJson(v);
-                    customerList.add(newCustomer);
+                if (refetchOriginalList) {
+                  final androidDeviceInfo = snapshot.data;
+                  if (androidDeviceInfo != "") {
+                    customerList = [];
+                    Map parsed = jsonDecode(androidDeviceInfo!);
+                    for (var v in parsed.values) {
+                      Customer newCustomer = Customer.fromJson(v);
+                      customerList.add(newCustomer);
+                    }
+                    String hello = "";
                   }
-                  String hello = "";
-                }
-                if (searchWord == "") {
-                  filteredCustomerList = customerList;
-                } else {
-                  filteredCustomerList = customerList
-                      .where((Customer cust) =>
-                          cust.mobileNumber.startsWith(searchWord))
-                      .toList();
+                  if (searchWord == "") {
+                    filteredCustomerList = customerList;
+                  } else {
+                    filteredCustomerList = customerList
+                        .where((Customer cust) =>
+                            cust.mobileNumber.startsWith(searchWord))
+                        .toList();
+                  }
                 }
                 return SingleChildScrollView(
                     child: Center(
@@ -96,6 +99,7 @@ class customerListState extends State<customerListPage> {
                               border: InputBorder.none),
                           onChanged: (value) {
                             setState(() {
+                              refetchOriginalList = true;
                               searchWord = value;
                             });
                           }),
@@ -103,6 +107,7 @@ class customerListState extends State<customerListPage> {
                         icon: new Icon(Icons.cancel),
                         onPressed: () {
                           setState(() {
+                            refetchOriginalList = true;
                             searchController.text = "";
                             searchWord = "";
                           });
@@ -194,6 +199,7 @@ class customerListState extends State<customerListPage> {
         selectedCustomerList.remove(itemValue);
         cm.currentSelectedCustomer.removeRelatedPeople(itemValue);
       }
+      refetchOriginalList = false;
     });
   }
 
