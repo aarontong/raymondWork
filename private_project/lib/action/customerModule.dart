@@ -96,7 +96,7 @@ class customerModule {
     int? cachedTime = prefs.getInt("customerListCacheTime");
     cachedTime = cachedTime != null ? cachedTime : 0;
     int difference = timestamp1 - cachedTime;
-    if (difference < 5000 && !customerListJsonString.isEmpty) {
+    if (difference < 300000) {
       String fileName = "customerListCache.json";
       var dir = await getTemporaryDirectory();
       File file = File(dir.path + "/" + fileName);
