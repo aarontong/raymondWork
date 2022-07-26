@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'customer/customerListPage.dart';
+import 'customerListPage.dart';
 
 class searchRelatedPerson extends StatelessWidget {
   var title;

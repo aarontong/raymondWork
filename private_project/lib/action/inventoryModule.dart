@@ -48,13 +48,13 @@ class inventoryModule {
       File file = File(dir.path + "/" + fileName);
       inventoryListStringJson = await file.readAsString();
     } else {
-      await updateCustomerListCache();
+      await updateInventoryListCache();
     }
     return inventoryListStringJson;
   }
 
-  Future<void> updateCustomerListCache() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("Client");
+  Future<void> updateInventoryListCache() async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref("Inventory");
     final snapshot = await ref.get();
     if (snapshot.exists) {
       Map map = snapshot.value as Map;

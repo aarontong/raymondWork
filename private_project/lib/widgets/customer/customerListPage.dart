@@ -65,7 +65,6 @@ class customerListState extends State<customerListPage> {
                 );
               } else {
                 // data loaded:
-                List<dynamic> tags;
                 if (refetchOriginalList) {
                   final androidDeviceInfo = snapshot.data;
                   if (androidDeviceInfo != "") {

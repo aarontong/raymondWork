@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:private_project/action/customerModule.dart';
 import 'package:private_project/model/customer.dart';
 import 'package:private_project/widgets/customer/customerListPage.dart';
-import 'package:private_project/widgets/searchRelatedPerson.dart';
+import 'package:private_project/widgets/customer/searchRelatedPerson.dart';
 import 'package:provider/provider.dart';
 
 class relatedPersonField extends StatefulWidget {
