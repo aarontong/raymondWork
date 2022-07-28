@@ -3,6 +3,8 @@ import 'package:private_project/widgets/customer/searchCustomerInfo.dart';
 import 'package:private_project/widgets/inventory/addNewInventory.dart';
 import 'package:private_project/widgets/inventory/searchInventory.dart';
 import 'package:private_project/widgets/customer/searchRelatedPerson.dart';
+import 'package:private_project/widgets/productCode/searchProduct.dart';
+import 'package:private_project/widgets/purchase/makePurchase.dart';
 import 'widgets/customer/addNewCustomer.dart';
 import 'widgets/customer/searchCustomer.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -71,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> tabs = [
     searchCustomerWidget(title: "Search Customer"),
     searchInventoryWidget(title: "Search Inventory"),
+    markPurchase(title: "Make Purchase"),
   ];
   void setPage(int index) {
     setState(() {
@@ -97,6 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.call), label: 'Customer'),
           BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inventory'),
+          BottomNavigationBarItem(icon: Icon(Icons.alarm), label: 'Purchase'),
         ],
         currentIndex: counter,
         onTap: (int index) {
