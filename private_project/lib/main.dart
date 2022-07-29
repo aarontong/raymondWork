@@ -100,7 +100,11 @@ class _MyHomePageState extends State<MyHomePage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.call), label: 'Customer'),
           BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inventory'),
-          BottomNavigationBarItem(icon: Icon(Icons.alarm), label: 'Purchase'),
+          BottomNavigationBarItem(
+              icon: ImageIcon(
+                AssetImage('assets/images/purchase.jpeg'),
+              ),
+              label: 'Purchase'),
         ],
         currentIndex: counter,
         onTap: (int index) {
