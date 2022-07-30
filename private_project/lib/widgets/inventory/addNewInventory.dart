@@ -57,8 +57,8 @@ class addNewInventoryState extends State<addNewInventoryWidget> {
 
   void submitButtonPressed() {
     String description = descriptionFieldState.descriptionFieldController.text;
-    String barCode = barCodeFieldState.barCodeFieldController.text;
-    String productCode = productCodeFieldState.productCodeFieldController.text;
+    String barCode = barCodeField.barCodeFieldController.text;
+    String productCode = productCodeField.productCodeController.text;
 
     if (description == "" || barCode == "" || productCode == "") {
       _showAlertDialog();

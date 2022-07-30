@@ -3,7 +3,7 @@ import 'package:private_project/widgets/customer/searchCustomerInfo.dart';
 import 'package:private_project/widgets/inventory/addNewInventory.dart';
 import 'package:private_project/widgets/inventory/searchInventory.dart';
 import 'package:private_project/widgets/customer/searchRelatedPerson.dart';
-import 'package:private_project/widgets/productCode/searchProduct.dart';
+import 'package:private_project/widgets/productCode/productListPage.dart';
 import 'package:private_project/widgets/purchase/makePurchase.dart';
 import 'widgets/customer/addNewCustomer.dart';
 import 'widgets/customer/searchCustomer.dart';
@@ -45,6 +45,9 @@ class MyApp extends StatelessWidget {
             searchCustomerInfo(title: "Customer Info"),
         searchRelatedPerson.route: (context) =>
             searchRelatedPerson(title: "Related Customer"),
+        productListPage.route: (context) => productListPage(
+              title: "Product Code List",
+            )
       },
     );
   }
@@ -73,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> tabs = [
     searchCustomerWidget(title: "Search Customer"),
     searchInventoryWidget(title: "Search Inventory"),
-    markPurchase(title: "Make Purchase"),
+    markPurchaseWidget(title: "Make Purchase"),
   ];
   void setPage(int index) {
     setState(() {
@@ -97,13 +100,12 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: tabs[counter],
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        iconSize: 20,
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.call), label: 'Customer'),
           BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inventory'),
           BottomNavigationBarItem(
-              icon: ImageIcon(
-                AssetImage('assets/images/purchase.jpeg'),
-              ),
+              icon: Image.asset('assets/images/purchase-icon.png'),
               label: 'Purchase'),
         ],
         currentIndex: counter,
