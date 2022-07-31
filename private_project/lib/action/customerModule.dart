@@ -67,7 +67,8 @@ class customerModule {
   Future<void> addNewCustomer(Customer newCustomer) async {
     await addCustomerProfilePicture(newCustomer, newCustomer.mobileNumber);
 
-    userCredentialsForGS.insertUser([newCustomer.toJson()]);
+    await userCredentialsForGS.insertUser([newCustomer.toJson()]);
+    await updateCustomerListCache();
   }
 
   Future<void> updateCustomerListCache() async {

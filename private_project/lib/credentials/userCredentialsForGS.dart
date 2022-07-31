@@ -52,7 +52,7 @@ class userCredentialsForGS {
 
   static Future insertUser(List<Map<String, dynamic>> rowList) async {
     if (_customerSheet == null) return;
-    _customerSheet!.values.map.appendRows(rowList);
+    await _customerSheet!.values.map.appendRows(rowList);
   }
 
   static Future<String> getAllUser() async {
