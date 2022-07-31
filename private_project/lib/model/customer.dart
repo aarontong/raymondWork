@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:private_project/action/customerModule.dart';
 
 class Customer extends ChangeNotifier {
   late String chName;
@@ -9,7 +10,7 @@ class Customer extends ChangeNotifier {
   late String email;
   late String profession;
   late String gender;
-  late String homeAddress;
+  late String address;
   late String age;
   late File profileImage;
   late String profileImageURL;
@@ -20,26 +21,27 @@ class Customer extends ChangeNotifier {
   Customer.fromJson(Map<String, dynamic> json)
       : chName = json["chName"],
         enName = json["enName"],
-        mobileNumber = json["mobile"],
+        mobileNumber = json["mobileNumber"],
         email = json["email"],
         age = json["age"],
         gender = json["gender"],
-        homeAddress = json["address"],
+        address = json["address"],
         profession = json["profession"],
         profileImageURL = json["profileImageURL"],
-        relatedPersonString = json["relatedPerson"];
+        relatedPersonString = json["relatedPersonString"];
 
   Map<String, dynamic> toJson() => {
-        "chName": chName,
-        "enName": enName,
-        "mobile": mobileNumber,
-        "email": email,
-        "age": age,
-        "gender": gender,
-        "address": homeAddress,
-        "profession": profession,
-        "profileImageURL": profileImageURL,
-        "relatedPersonString": relatedPersonString
+        customerModule.enName: enName,
+        customerModule.chName: chName,
+        customerModule.age: age,
+        customerModule.enName: enName,
+        customerModule.address: address,
+        customerModule.email: email,
+        customerModule.mobileNumber: mobileNumber,
+        customerModule.profession: profession,
+        customerModule.gender: gender,
+        customerModule.profileImageURL: profileImageURL,
+        customerModule.relatedPersonString: relatedPersonString,
       };
   void addRelatedPeople(Customer customer) {
     this.relatedPerson.add(customer);

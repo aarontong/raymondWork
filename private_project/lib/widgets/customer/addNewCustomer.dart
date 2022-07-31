@@ -168,12 +168,12 @@ class addNewCustomerState extends State<addNewCustomerWidget> {
       newCustomer.mobileNumber = mobileText;
       newCustomer.age = ageText;
       newCustomer.gender = genderField.gender;
-      newCustomer.homeAddress = homeAddressText;
+      newCustomer.address = homeAddressText;
       newCustomer.profession = professionFieldText;
       newCustomer.profileImage = profileFilePath;
       newCustomer.relatedPersonString =
           relatedPersonField.relatedPersonController.text;
-      await cm.addNewCustomer(newCustomer, mobileText);
+      await cm.addNewCustomer(newCustomer);
       _showSuccessDialog().then((value) => Navigator.pop(context));
     }
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:private_project/action/inventoryModule.dart';
 
 class Inventory {
   late String barCode;
@@ -8,6 +9,7 @@ class Inventory {
   late String importTimeString;
   late DateTime sellTime;
   late String sellTimeString;
+  late String purchaseCustomer;
 
   Inventory({
     Key? key,
@@ -24,10 +26,10 @@ class Inventory {
         sellTimeString = json["sellTime"];
 
   Map<String, dynamic> toJson() => {
-        "barCode": barCode,
-        "description": description,
-        "productCode": productCode,
-        "importTime": importTimeString,
-        "sellTime": sellTimeString,
+        inventoryModule.barCode: barCode,
+        inventoryModule.importTime: importTimeString,
+        inventoryModule.soldTime: sellTime,
+        inventoryModule.purchaseCustomer: purchaseCustomer,
+        inventoryModule.description: description,
       };
 }

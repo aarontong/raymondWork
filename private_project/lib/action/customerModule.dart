@@ -4,7 +4,10 @@ import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:private_project/credentials/userCredentialsForGS.dart';
 import 'package:private_project/widgets/customer/addNewCustomer.dart';
 import 'package:private_project/widgets/customer/insertField/addCustomerButton.dart';
 import 'package:private_project/widgets/customer/insertField/ageField.dart';
@@ -22,6 +25,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../model/customer.dart';
 
 class customerModule {
+  static String enName = "enName";
+  static String chName = "chName";
+  static String age = "age";
+  static String address = "address";
+  static String email = "email";
+  static String mobileNumber = "mobileNumber";
+  static String profession = "profession";
+  static String gender = "gender";
+  static String profileImageURL = "profileImageURL";
+  static String relatedPersonString = "relatedPersonString";
+
   late Customer currentSelectedCustomer;
 
   static late int timestamp1;
@@ -38,55 +52,36 @@ class customerModule {
   }
   customerModule._internal();
 
-  Future<void> addNewCustomer(Customer newCustomer, String mobileText) async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("Client");
-    await addCustomerProfilePicture(newCustomer, mobileText);
-    String enName = newCustomer.enName;
-    String chName = newCustomer.chName;
-    String age = newCustomer.age;
-    String homeAddress = newCustomer.homeAddress;
-    String email = newCustomer.email;
-    String mobileNumber = newCustomer.mobileNumber;
-    String profession = newCustomer.profession;
-    String gender = newCustomer.gender;
-    String profileImageURL = newCustomer.profileImageURL;
-    String relatedPersonString = newCustomer.relatedPersonString;
-    ref = ref.child("$mobileText");
-    await ref.set({
-      "enName": "$enName",
-      "chName": "$chName",
-      "age": "$age",
-      "address": "$homeAddress",
-      "email": "$email",
-      "mobile": "$mobileNumber",
-      "profession": "$profession",
-      "gender": "$gender",
-      "profileImageURL": "$profileImageURL",
-      "relatedPerson": "$relatedPersonString"
-    });
-    updateCustomerListCache();
+  static List<String> getWorksheetTitle() => [
+        enName,
+        chName,
+        age,
+        address,
+        email,
+        mobileNumber,
+        profession,
+        gender,
+        profileImageURL,
+        relatedPersonString
+      ];
+  Future<void> addNewCustomer(Customer newCustomer) async {
+    await addCustomerProfilePicture(newCustomer, newCustomer.mobileNumber);
+
+    userCredentialsForGS.insertUser([newCustomer.toJson()]);
   }
 
   Future<void> updateCustomerListCache() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("Client");
-    final snapshot = await ref.get();
-    if (snapshot.exists) {
-      Map map = snapshot.value as Map;
-      customerListJsonString = json.encode(map);
-      String fileName = "customerListCache.json";
-      var dir = await getTemporaryDirectory();
-      File file = File(dir.path + "/" + fileName);
-      file.writeAsStringSync(customerListJsonString,
-          flush: true, mode: FileMode.write);
-      DateTime nowDate = DateTime.now();
-      timestamp1 = nowDate.millisecondsSinceEpoch;
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setInt("customerListCacheTime", timestamp1);
-      String snapString = customerListJsonString;
-      print(snapshot.value);
-    } else {
-      print('No data available.');
-    }
+    String customerListJsonString = await userCredentialsForGS.getAllUser();
+    String fileName = "customerListCache.json";
+    var dir = await getTemporaryDirectory();
+    File file = File(dir.path + "/" + fileName);
+    file.writeAsStringSync(customerListJsonString,
+        flush: true, mode: FileMode.write);
+    DateTime nowDate = DateTime.now();
+    timestamp1 = nowDate.millisecondsSinceEpoch;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt("customerListCacheTime", timestamp1);
+    String snapString = customerListJsonString;
   }
 
   Future<String> getCachedContent() async {

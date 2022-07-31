@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:private_project/action/inventoryModule.dart';
+import 'package:private_project/action/productModule.dart';
+
 import 'package:private_project/widgets/inventory/insertField/addInventoryButton.dart';
 import 'package:private_project/widgets/inventory/insertField/barCodeField.dart';
 import 'package:private_project/widgets/inventory/insertField/descriptionFIeld.dart';
@@ -55,7 +57,7 @@ class addNewInventoryState extends State<addNewInventoryWidget> {
     );
   }
 
-  void submitButtonPressed() {
+  Future<void> submitButtonPressed() async {
     String description = descriptionFieldState.descriptionFieldController.text;
     String barCode = barCodeField.barCodeFieldController.text;
     String productCode = productCodeField.productCodeController.text;
@@ -68,7 +70,11 @@ class addNewInventoryState extends State<addNewInventoryWidget> {
           productCode: productCode,
           description: description,
           importTime: DateTime.now());
-      inventoryModule.addNewInventory(inventory, barCode);
+      inventoryModule im = inventoryModule();
+      productModule pm = productModule();
+      await im.addNewInventory(inventory, barCode);
+
+      pm.addNewProduct(productCode);
       _showSuccessDialog().then((value) => Navigator.pop(context));
     }
   }

@@ -6,22 +6,33 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class productModule {
+  static String barCode = "barCode";
+  static String productCode = "productCode";
+  static String productLine = "productLine";
+  static String description = "description";
+
   static final productModule _productModule = productModule.internal();
   static late int timestamp1;
   static String productListStringJson = "";
-
+  String selectedProduceCode = "";
   factory productModule() {
     return _productModule;
   }
   productModule.internal();
 
-  static Future<void> addNewProduct(String productCode) async {
+  Future<void> addNewProduct(String productCode) async {
     DatabaseReference ref = FirebaseDatabase.instance.ref("Product");
-    await ref.set({
-      "productCode": "$productCode",
-    });
+    ref = ref.child("$productCode");
+    await ref.set("$productCode");
+    updateProductListCache();
   }
 
+  static List<String> getWorksheetTitle() => [
+        barCode,
+        productCode,
+        productLine,
+        description,
+      ];
   Future<String> getCachedContent() async {
     DateTime nowDate = DateTime.now();
     timestamp1 = nowDate.millisecondsSinceEpoch;

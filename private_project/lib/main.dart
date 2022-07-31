@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:private_project/credentials/userCredentialsForGS.dart';
 import 'package:private_project/widgets/customer/searchCustomerInfo.dart';
 import 'package:private_project/widgets/inventory/addNewInventory.dart';
 import 'package:private_project/widgets/inventory/searchInventory.dart';
@@ -11,6 +12,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await userCredentialsForGS.init();
   await Firebase.initializeApp();
   runApp(const MyApp());
 }

@@ -19,7 +19,7 @@ class searchCustomerInfo extends StatelessWidget {
     String email = currentCustomer.email;
     String profession = currentCustomer.profession;
     String age = currentCustomer.age;
-    String address = currentCustomer.homeAddress;
+    String address = currentCustomer.address;
     String profileImageURL = currentCustomer.profileImageURL;
 
     // TODO: implement build

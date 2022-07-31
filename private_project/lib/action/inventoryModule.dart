@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_database/firebase_database.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +11,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../model/inventory.dart';
 
 class inventoryModule {
+  static String barCode = "barCode";
+  static String importTime = "importTime";
+  static String soldTime = "soldTime";
+  static String purchaseCustomer = "purchaseCustomer";
+  static String description = "description";
+
   static final inventoryModule _inventoryModule = inventoryModule.internal();
   static late int timestamp1;
   static String inventoryListStringJson = "";
@@ -18,8 +26,14 @@ class inventoryModule {
   }
   inventoryModule.internal();
 
-  static Future<void> addNewInventory(
-      Inventory inventory, String barCode) async {
+  static List<String> getWorksheetTitle() => [
+        barCode,
+        importTime,
+        soldTime,
+        purchaseCustomer,
+        description,
+      ];
+  Future<void> addNewInventory(Inventory inventory, String barCode) async {
     DatabaseReference ref = FirebaseDatabase.instance.ref("Inventory");
     ref = ref.child(barCode);
     String productCode = inventory.productCode;
@@ -33,6 +47,7 @@ class inventoryModule {
       "importTime": "$importTime",
       "description": "$description",
     });
+    await updateInventoryListCache();
   }
 
   Future<String> getCachedContent() async {
@@ -54,24 +69,19 @@ class inventoryModule {
   }
 
   Future<void> updateInventoryListCache() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("Inventory");
-    final snapshot = await ref.get();
-    if (snapshot.exists) {
-      Map map = snapshot.value as Map;
-      inventoryListStringJson = json.encode(map);
-      String fileName = "inventoryListCache.json";
-      var dir = await getTemporaryDirectory();
-      File file = File(dir.path + "/" + fileName);
-      file.writeAsStringSync(inventoryListStringJson,
-          flush: true, mode: FileMode.write);
-      DateTime nowDate = DateTime.now();
-      timestamp1 = nowDate.millisecondsSinceEpoch;
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setInt("inventoryListCacheTime", timestamp1);
-      String snapString = inventoryListStringJson;
-      print(snapshot.value);
-    } else {
-      print('No data available.');
-    }
+    Response data = await http.get(
+      Uri.parse(
+          "https://script.google.com/macros/s/AKfycbwIyURARA8KR9TLAKzwXHtA83Vle3oVmJEIaBI2SdzQmKK6LkILXDKn2m9j6EuTgEwuMw/exec"),
+    );
+    dynamic inventoryListStringJson = jsonDecode(data.body);
+    String fileName = "inventoryListCache.json";
+    var dir = await getTemporaryDirectory();
+    File file = File(dir.path + "/" + fileName);
+    file.writeAsStringSync(inventoryListStringJson,
+        flush: true, mode: FileMode.write);
+    DateTime nowDate = DateTime.now();
+    timestamp1 = nowDate.millisecondsSinceEpoch;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt("inventoryListCacheTime", timestamp1);
   }
 }

@@ -69,8 +69,8 @@ class customerListState extends State<customerListPage> {
                   final androidDeviceInfo = snapshot.data;
                   if (androidDeviceInfo != "") {
                     customerList = [];
-                    Map parsed = jsonDecode(androidDeviceInfo!);
-                    for (var v in parsed.values) {
+                    List parsed = jsonDecode(androidDeviceInfo!);
+                    for (var v in parsed) {
                       Customer newCustomer = Customer.fromJson(v);
                       customerList.add(newCustomer);
                     }
@@ -170,7 +170,7 @@ class customerListState extends State<customerListPage> {
                             SizedBox(height: 10),
                             ListTile(
                               title: Text("Home Address:\t" +
-                                  filteredCustomerList[index].homeAddress),
+                                  filteredCustomerList[index].address),
                             ),
                             SizedBox(height: 10),
                             ListTile(
