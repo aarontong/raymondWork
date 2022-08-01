@@ -46,8 +46,8 @@ dependencies:
   cached_network_image: ^3.2.1
   shared_preferences: ^2.0.15
   safe_device: ^1.1.1
-  syncfusion_flutter_calendar: 19.2.44
-  intl: ^0.15.8
+  syncfusion_flutter_calendar: ^20.2.40
+  intl: ^0.17.0
   http: ^0.13.3
   gsheets: ^0.4.2
 dev_dependencies:
