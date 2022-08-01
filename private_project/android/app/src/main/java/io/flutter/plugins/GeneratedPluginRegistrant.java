@@ -40,7 +40,7 @@ public final class GeneratedPluginRegistrant {
     try {
       fr.g123k.flutterisemulator.FlutterIsEmulatorPlugin.registerWith(shimPluginRegistry.registrarFor("fr.g123k.flutterisemulator.FlutterIsEmulatorPlugin"));
     } catch(Exception e) {
-      Log.e(TAG, "Error registering plugin flutter_is_emulator, fr.g123k.flutterisemulator.FlutterIsEmulatorPlugin", e);
+      Log.e(TAG, "Error registering plugin flutter_is_emulator_fixed, fr.g123k.flutterisemulator.FlutterIsEmulatorPlugin", e);
     }
     try {
       flutterEngine.getPlugins().add(new io.flutter.plugins.flutter_plugin_android_lifecycle.FlutterAndroidLifecyclePlugin());
