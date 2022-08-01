@@ -209,13 +209,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.0"
-  flutter_is_emulator:
+  flutter_is_emulator_fixed:
     dependency: "direct main"
     description:
-      name: flutter_is_emulator
+      name: flutter_is_emulator_fixed
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   flutter_lints:
     dependency: "direct dev"
     description:
