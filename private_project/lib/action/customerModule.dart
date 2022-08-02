@@ -70,7 +70,7 @@ class customerModule {
     await updateCustomerListCache();
   }
 
-  Future<void> updateCustomerListCache() async {
+  Future<String> updateCustomerListCache() async {
     String customerListJsonString = await userCredentialsForGS.getAllUser();
     String fileName = "customerListCache.json";
     var dir = await getTemporaryDirectory();
@@ -81,7 +81,7 @@ class customerModule {
     timestamp1 = nowDate.millisecondsSinceEpoch;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt("customerListCacheTime", timestamp1);
-    String snapString = customerListJsonString;
+    return customerListJsonString;
   }
 
   Future<String> getCachedContent() async {
@@ -97,7 +97,7 @@ class customerModule {
       File file = File(dir.path + "/" + fileName);
       customerListJsonString = await file.readAsString();
     } else {
-      await updateCustomerListCache();
+      customerListJsonString = await updateCustomerListCache();
     }
     return customerListJsonString;
   }

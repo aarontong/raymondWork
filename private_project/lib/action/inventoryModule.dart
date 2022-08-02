@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
+import 'package:private_project/credentials/userCredentialsForGS.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,19 +34,8 @@ class inventoryModule {
         description,
       ];
   Future<void> addNewInventory(Inventory inventory, String barCode) async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("Inventory");
-    ref = ref.child(barCode);
-    String productCode = inventory.productCode;
-    String description = inventory.description;
-    String importTime =
-        DateFormat('yyyy-MM-dd – kk:mm').format(inventory.importTime);
+    await userCredentialsForGS.insertInventory([inventory.toJson()]);
 
-    await ref.set({
-      "productCode": "$productCode",
-      "barCode": "$barCode",
-      "importTime": "$importTime",
-      "description": "$description",
-    });
     await updateInventoryListCache();
   }
 
@@ -63,17 +52,14 @@ class inventoryModule {
       File file = File(dir.path + "/" + fileName);
       inventoryListStringJson = await file.readAsString();
     } else {
-      await updateInventoryListCache();
+      inventoryListStringJson = await updateInventoryListCache();
     }
     return inventoryListStringJson;
   }
 
-  Future<void> updateInventoryListCache() async {
-    Response data = await http.get(
-      Uri.parse(
-          "https://script.google.com/macros/s/AKfycbwIyURARA8KR9TLAKzwXHtA83Vle3oVmJEIaBI2SdzQmKK6LkILXDKn2m9j6EuTgEwuMw/exec"),
-    );
-    dynamic inventoryListStringJson = jsonDecode(data.body);
+  Future<String> updateInventoryListCache() async {
+    String inventoryListStringJson =
+        await userCredentialsForGS.getAllInventory();
     String fileName = "inventoryListCache.json";
     var dir = await getTemporaryDirectory();
     File file = File(dir.path + "/" + fileName);
@@ -83,5 +69,6 @@ class inventoryModule {
     timestamp1 = nowDate.millisecondsSinceEpoch;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt("inventoryListCacheTime", timestamp1);
+    return inventoryListStringJson;
   }
 }

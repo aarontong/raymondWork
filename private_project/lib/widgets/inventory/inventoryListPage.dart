@@ -39,8 +39,8 @@ class inventoryListState extends State<inventoryListPage> {
           final androidDeviceInfo = snapshot.data;
           if (androidDeviceInfo != "") {
             inventoryList = [];
-            Map parsed = jsonDecode(androidDeviceInfo!);
-            for (var v in parsed.values) {
+            List parsed = jsonDecode(androidDeviceInfo!);
+            for (var v in parsed) {
               Inventory newInventory = Inventory.fromJson(v);
               inventoryList.add(newInventory);
             }

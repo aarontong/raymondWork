@@ -5,6 +5,7 @@ import 'package:private_project/action/customerModule.dart';
 import 'package:private_project/action/inventoryModule.dart';
 import 'package:private_project/action/productModule.dart';
 import 'package:private_project/model/customer.dart';
+import 'package:private_project/model/inventory.dart';
 
 class userCredentialsForGS {
   static const String _credentials = r'''
@@ -61,5 +62,19 @@ class userCredentialsForGS {
     List<Customer> customerList = users!.map(Customer.fromJson).toList();
     String jsonString = jsonEncode(customerList);
     return users == null ? "" : jsonString;
+  }
+
+  static Future insertInventory(List<Map<String, dynamic>> rowList) async {
+    if (_inventorySheet == null) return;
+    await _inventorySheet!.values.map.appendRows(rowList);
+  }
+
+  static Future<String> getAllInventory() async {
+    if (_inventorySheet == null) return "";
+    final inventories = await _inventorySheet!.values.map.allRows();
+    List<Inventory> inventoryList =
+        inventories!.map(Inventory.fromJson).toList();
+    String jsonString = jsonEncode(inventoryList);
+    return inventories == null ? "" : jsonString;
   }
 }

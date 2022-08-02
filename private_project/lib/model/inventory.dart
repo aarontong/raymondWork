@@ -7,8 +7,8 @@ class Inventory {
   late String description;
   late DateTime importTime;
   late String importTimeString;
-  late DateTime sellTime;
-  late String sellTimeString;
+  late DateTime soldTime;
+  late String soldTimeString;
   late String purchaseCustomer;
 
   Inventory({
@@ -21,14 +21,14 @@ class Inventory {
   Inventory.fromJson(Map<String, dynamic> json)
       : barCode = json["barCode"],
         description = json["description"],
-        productCode = json["productCode"],
+        purchaseCustomer = json["purchaseCustomer"],
         importTimeString = json["importTime"],
-        sellTimeString = json["sellTime"];
+        soldTimeString = json["soldTime"];
 
   Map<String, dynamic> toJson() => {
         inventoryModule.barCode: barCode,
         inventoryModule.importTime: importTimeString,
-        inventoryModule.soldTime: sellTime,
+        inventoryModule.soldTime: soldTimeString,
         inventoryModule.purchaseCustomer: purchaseCustomer,
         inventoryModule.description: description,
       };
