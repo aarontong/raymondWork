@@ -69,12 +69,14 @@ class addNewInventoryState extends State<addNewInventoryWidget> {
           barCode: barCode,
           productCode: productCode,
           description: description,
-          importTime: DateTime.now());
+          importTimeString: DateTime.now().toString(),
+          soldTimeString: "",
+          purchaseCustomer: "");
       inventoryModule im = inventoryModule();
       productModule pm = productModule();
       await im.addNewInventory(inventory, barCode);
 
-      pm.addNewProduct(productCode);
+      // pm.addNewProduct(productCode);
       _showSuccessDialog().then((value) => Navigator.pop(context));
     }
   }
