@@ -5,7 +5,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:private_project/credentials/userCredentialsForGS.dart';
 import 'package:private_project/widgets/customer/addNewCustomer.dart';
