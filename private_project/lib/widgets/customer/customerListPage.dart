@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:private_project/action/customerModule.dart';
+import 'package:private_project/widgets/customer/insertField/relatedPersonField.dart';
 import 'package:private_project/widgets/customer/searchCustomerInfo.dart';
 import '../../model/customer.dart';
 

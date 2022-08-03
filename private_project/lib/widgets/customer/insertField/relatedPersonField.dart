@@ -5,6 +5,8 @@ import 'package:private_project/widgets/customer/searchRelatedPerson.dart';
 import 'package:provider/provider.dart';
 
 class relatedPersonField extends StatefulWidget {
+  static String relatedPersonString = "";
+
   static TextEditingController relatedPersonController =
       TextEditingController();
 
@@ -19,14 +21,14 @@ class relatedPersonState extends State<relatedPersonField> {
     customerModule cm = customerModule.searchCustomer();
 
     return Consumer<Customer>(builder: (context, model, child) {
-      String relatedPersonString = "";
       for (Customer c in model.relatedPerson) {
         String name = c.enName;
         String phone = c.mobileNumber;
-        relatedPersonString += "$name\t$phone ,";
+        relatedPersonField.relatedPersonString += "$name\t$phone ,";
       }
       Future.delayed(Duration.zero, () {
-        relatedPersonField.relatedPersonController.text = relatedPersonString;
+        relatedPersonField.relatedPersonController.text =
+            relatedPersonField.relatedPersonString;
       });
       return TextFormField(
         decoration: new InputDecoration(
@@ -44,6 +46,11 @@ class relatedPersonState extends State<relatedPersonField> {
   }
 
   void pushToSearchPage() {
+    setState(() {
+      customerModule cm = customerModule.searchCustomer();
+      cm.currentSelectedCustomer.relatedPerson = [];
+      relatedPersonField.relatedPersonString = "";
+    });
     Navigator.pushNamed(context, searchRelatedPerson.route);
   }
 }

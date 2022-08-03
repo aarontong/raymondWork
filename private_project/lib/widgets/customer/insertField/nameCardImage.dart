@@ -25,7 +25,7 @@ class nameCardImageState extends State<nameCardImageField> {
     final XFile? photo =
         await _picker.pickImage(source: ImageSource.camera) as XFile?;
     bool isAnEmulator = await SafeDevice.isRealDevice;
-    if (isAnEmulator && Platform.isIOS) {
+    if (!isAnEmulator && Platform.isIOS) {
       setState(() async {
         nameCardImageField._image =
             await imageToFile(imageName: "camera-icon", ext: "jpeg");
