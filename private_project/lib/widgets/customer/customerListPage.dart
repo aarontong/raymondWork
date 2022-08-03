@@ -5,6 +5,7 @@ import 'package:private_project/action/customerModule.dart';
 import 'package:private_project/widgets/customer/insertField/relatedPersonField.dart';
 import 'package:private_project/widgets/customer/searchCustomerInfo.dart';
 import '../../model/customer.dart';
+import 'package:private_project/widgets/customer/searchCustomer.dart';
 
 class customerListPage extends StatefulWidget {
   final bool multipleSelection;
@@ -213,6 +214,7 @@ class customerListState extends State<customerListPage> {
     filteredCustomerList = [];
     customerList = [];
     selectedCustomerList = [];
+    Navigator.popAndPushNamed(context, searchCustomerWidget.route);
     return new Future.value(true);
   }
 }
