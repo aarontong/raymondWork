@@ -6,6 +6,8 @@ class searchInventoryWidget extends StatefulWidget {
   const searchInventoryWidget({Key? key, required this.title})
       : super(key: key);
   final String title;
+  static String route = "/searchInventoryWidget";
+
   @override
   State<searchInventoryWidget> createState() =>
       searchInventoryState(title: title);
@@ -22,7 +24,8 @@ class searchInventoryState extends State<searchInventoryWidget> {
       appBar: AppBar(title: Text(title), actions: [
         IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, addNewInventoryWidget.route);
+              Navigator.pushNamed(context, addNewInventoryWidget.route)
+                  .then((_) => setState(() {}));
             },
             icon: Icon(Icons.add))
       ]),

@@ -231,7 +231,7 @@
     },
     {
       "name": "http",
-      "rootUri": "file:///Users/aarontong/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4",
+      "rootUri": "file:///Users/aarontong/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.5",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -267,7 +267,7 @@
     },
     {
       "name": "image_picker_platform_interface",
-      "rootUri": "file:///Users/aarontong/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_platform_interface-2.6.0",
+      "rootUri": "file:///Users/aarontong/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_platform_interface-2.6.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -363,7 +363,7 @@
     },
     {
       "name": "path_provider_windows",
-      "rootUri": "file:///Users/aarontong/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.1.0",
+      "rootUri": "file:///Users/aarontong/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -602,7 +602,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-08-02T16:54:27.279843Z",
+  "generated": "2022-08-05T16:39:39.775616Z",
   "generator": "pub",
   "generatorVersion": "2.17.6"
 }
