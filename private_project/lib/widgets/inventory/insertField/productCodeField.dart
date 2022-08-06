@@ -30,6 +30,11 @@ class productCodeFieldState extends State<productCodeField> {
   }
 
   void pushToSearchPage() {
-    Navigator.pushNamed(context, productListPage.route).then((value) => null);
+    Navigator.pushNamed(context, productListPage.route)
+        .then((value) => setState(() {
+              if (pm.selectedProductCodeString != "")
+                productCodeField.productCodeController.text =
+                    pm.selectedProductCodeString;
+            }));
   }
 }

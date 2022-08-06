@@ -14,6 +14,7 @@ class productModule {
   static late int timestamp1;
   static String productListStringJson = "";
   late Product selectedProduct;
+  String selectedProductCodeString = "";
   factory productModule() {
     return _productModule;
   }

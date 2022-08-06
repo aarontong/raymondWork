@@ -102,7 +102,8 @@ class productListState extends State<productListPage> {
                                 onTap: () =>
                                     _itemChange(filteredProductList[index]),
                                 child: ListTile(
-                                  title: Text(filteredProductList[index].productCode),
+                                  title: Text(
+                                      filteredProductList[index].productCode),
                                 ));
                           }),
                     ])));
@@ -112,6 +113,8 @@ class productListState extends State<productListPage> {
 
   void _itemChange(Product value) {
     pm.selectedProduct = value;
+    pm.selectedProductCodeString = value.productCode;
+
     Navigator.pop(context);
   }
 
