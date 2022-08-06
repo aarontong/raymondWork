@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:private_project/action/productModule.dart';
 import 'package:private_project/widgets/productCode/productListPage.dart';
 
 class productCodeField extends StatefulWidget {
@@ -8,6 +9,8 @@ class productCodeField extends StatefulWidget {
 }
 
 class productCodeFieldState extends State<productCodeField> {
+  productModule pm = productModule();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -27,6 +30,6 @@ class productCodeFieldState extends State<productCodeField> {
   }
 
   void pushToSearchPage() {
-    Navigator.pushNamed(context, productListPage.route);
+    Navigator.pushNamed(context, productListPage.route).then((value) => null);
   }
 }

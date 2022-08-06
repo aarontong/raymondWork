@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:private_project/action/productModule.dart';
 
-class Product {
+class Product extends ChangeNotifier{
   late String productCode;
   late String productLine;
 

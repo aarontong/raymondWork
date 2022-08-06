@@ -13,7 +13,7 @@ class productModule {
   static final productModule _productModule = productModule.internal();
   static late int timestamp1;
   static String productListStringJson = "";
-  String selectedProduceCode = "";
+  late Product selectedProduct;
   factory productModule() {
     return _productModule;
   }

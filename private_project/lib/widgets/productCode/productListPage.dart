@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:private_project/action/productModule.dart';
+import 'package:private_project/model/product.dart';
 
 class productListPage extends StatefulWidget {
   productListPage({Key? key, required this.title}) : super(key: key);
@@ -19,8 +20,8 @@ class productListState extends State<productListPage> {
 
   static String searchWord = "";
 
-  static List<String> productList = [];
-  static List<String> filteredProductList = [];
+  static List<Product> productList = [];
+  static List<Product> filteredProductList = [];
   static TextEditingController searchController = TextEditingController();
 
   @override
@@ -45,9 +46,11 @@ class productListState extends State<productListPage> {
                     final androidDeviceInfo = snapshot.data;
                     if (androidDeviceInfo != "") {
                       productList = [];
-                      Map parsed = jsonDecode(androidDeviceInfo!);
-                      for (var v in parsed.values) {
-                        productList.add(v.toString());
+                      List parsed = jsonDecode(androidDeviceInfo!);
+                      for (var v in parsed) {
+                        Product newProduct = Product.fromJson(v);
+
+                        productList.add(newProduct);
                       }
                       String hello = "";
                     }
@@ -55,8 +58,8 @@ class productListState extends State<productListPage> {
                       filteredProductList = productList;
                     } else {
                       filteredProductList = productList
-                          .where((String productCode) =>
-                              productCode.startsWith(searchWord))
+                          .where((Product product) =>
+                              product.productCode.startsWith(searchWord))
                           .toList();
                     }
                     return SingleChildScrollView(
@@ -99,7 +102,7 @@ class productListState extends State<productListPage> {
                                 onTap: () =>
                                     _itemChange(filteredProductList[index]),
                                 child: ListTile(
-                                  title: Text(filteredProductList[index]),
+                                  title: Text(filteredProductList[index].productCode),
                                 ));
                           }),
                     ])));
@@ -107,8 +110,9 @@ class productListState extends State<productListPage> {
                 })));
   }
 
-  void _itemChange(String value) {
-    pm.selectedProduceCode = value;
+  void _itemChange(Product value) {
+    pm.selectedProduct = value;
+    Navigator.pop(context);
   }
 
   Future<bool> _requestPop() {
