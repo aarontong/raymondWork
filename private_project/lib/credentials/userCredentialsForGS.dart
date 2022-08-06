@@ -77,4 +77,17 @@ class userCredentialsForGS {
     String jsonString = jsonEncode(inventoryList);
     return inventories == null ? "" : jsonString;
   }
+
+  static Future insertProduct(List<Map<String, dynamic>> rowList) async {
+    if (_productSheet == null) return;
+    await _productSheet!.values.map.appendRows(rowList);
+  }
+
+  static Future<String> getAllProduct() async {
+    if (_productSheet == null) return "";
+    final products = await _productSheet!.values.map.allRows();
+    List<Inventory> productList = products!.map(Inventory.fromJson).toList();
+    String jsonString = jsonEncode(productList);
+    return products == null ? "" : jsonString;
+  }
 }

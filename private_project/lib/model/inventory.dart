@@ -4,7 +4,6 @@ import 'package:private_project/action/inventoryModule.dart';
 class Inventory {
   late String barCode;
   late String productCode;
-  late String description;
   late String importTimeString;
   late String soldTimeString;
   late String purchaseCustomer;
@@ -13,14 +12,13 @@ class Inventory {
       {Key? key,
       required this.barCode,
       required this.productCode,
-      required this.description,
       required this.importTimeString,
       required this.soldTimeString,
       required this.purchaseCustomer});
 
   Inventory.fromJson(Map<String, dynamic> json)
       : barCode = json["barCode"],
-        description = json["description"],
+        productCode = json["productCode"],
         purchaseCustomer = json["purchaseCustomer"],
         importTimeString = json["importTime"],
         soldTimeString = json["soldTime"];
@@ -30,6 +28,6 @@ class Inventory {
         inventoryModule.importTime: importTimeString,
         inventoryModule.soldTime: soldTimeString,
         inventoryModule.purchaseCustomer: purchaseCustomer,
-        inventoryModule.description: description,
+        inventoryModule.productCode: productCode,
       };
 }

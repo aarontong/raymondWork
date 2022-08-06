@@ -16,7 +16,7 @@ class descriptionFieldState extends State<descriptionField> {
       minLines: 10,
       maxLines: 15,
       controller: descriptionFieldController,
-      decoration: new InputDecoration.collapsed(hintText: "Description:"),
+      decoration: new InputDecoration.collapsed(hintText: "ProductLine:"),
     );
   }
 }

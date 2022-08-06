@@ -15,7 +15,7 @@ class inventoryModule {
   static String importTime = "importTime";
   static String soldTime = "soldTime";
   static String purchaseCustomer = "purchaseCustomer";
-  static String description = "description";
+  static String productCode = "productCode";
 
   static final inventoryModule _inventoryModule = inventoryModule.internal();
   static late int timestamp1;
@@ -31,7 +31,7 @@ class inventoryModule {
         importTime,
         soldTime,
         purchaseCustomer,
-        description,
+        productCode,
       ];
   Future<void> addNewInventory(Inventory inventory, String barCode) async {
     await userCredentialsForGS.insertInventory([inventory.toJson()]);
