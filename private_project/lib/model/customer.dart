@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:private_project/action/customerModule.dart';
 
 class Customer extends ChangeNotifier {
-  late String chName;
-  late String enName;
-  late String mobileNumber;
-  late String email;
-  late String profession;
-  late String gender;
-  late String address;
-  late String age;
+  String chName = "";
+  String enName = "";
+  String mobileNumber = "";
+  String email = "";
+  String profession = "";
+  String gender = "";
+  String address = "";
+  String age = "";
   late File profileImage;
-  late String profileImageURL;
-  late String relatedPersonString;
+  String profileImageURL = "";
+  String relatedPersonString = "";
   late List<Customer> relatedPerson = [];
   Customer({Key? key});
 

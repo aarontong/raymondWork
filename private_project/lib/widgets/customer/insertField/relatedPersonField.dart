@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 
 class relatedPersonField extends StatefulWidget {
   static String relatedPersonString = "";
-
   static TextEditingController relatedPersonController =
       TextEditingController();
 

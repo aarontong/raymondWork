@@ -25,6 +25,7 @@ class searchCustomerState extends State<searchCustomerWidget> {
     return Scaffold(
       body: customerListPage(
         multipleSelection: false,
+        purchasing: false,
       ),
       appBar: AppBar(
         title: Text(this.title),

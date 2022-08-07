@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:private_project/action/customerModule.dart';
 import 'package:private_project/credentials/userCredentialsForGS.dart';
+import 'package:private_project/model/customer.dart';
 import 'package:private_project/widgets/customer/searchCustomerInfo.dart';
 import 'package:private_project/widgets/inventory/addNewInventory.dart';
 import 'package:private_project/widgets/inventory/searchInventory.dart';
 import 'package:private_project/widgets/customer/searchRelatedPerson.dart';
+import 'package:private_project/widgets/customer/searchPurchasedCustomer.dart';
 import 'package:private_project/widgets/productCode/productListPage.dart';
 import 'package:private_project/widgets/purchase/makePurchase.dart';
 import 'widgets/customer/addNewCustomer.dart';
@@ -47,9 +50,13 @@ class MyApp extends StatelessWidget {
             searchCustomerInfo(title: "Customer Info"),
         searchRelatedPerson.route: (context) =>
             searchRelatedPerson(title: "Related Customer"),
+        searchPurchasedCustomer.route: (context) =>
+            searchPurchasedCustomer(title: "Purchased Customer"),
         productListPage.route: (context) => productListPage(
               title: "Product Code List",
-            )
+            ),
+        makePurchaseWidget.route: (context) =>
+            makePurchaseWidget(title: "Make Purchase"),
       },
     );
   }
@@ -78,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> tabs = [
     searchCustomerWidget(title: "Search Customer"),
     searchInventoryWidget(title: "Search Inventory"),
-    markPurchaseWidget(title: "Make Purchase"),
+    makePurchaseWidget(title: "Make Purchase"),
   ];
   void setPage(int index) {
     setState(() {
@@ -87,6 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
+
       this.counter = index;
     });
   }
@@ -99,6 +107,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    Customer newCustomer = Customer();
+    customerModule cm = customerModule.searchCustomer();
+    cm.currentSelectedCustomer = newCustomer;
     return Scaffold(
       body: tabs[counter],
       bottomNavigationBar: BottomNavigationBar(

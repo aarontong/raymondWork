@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'customerListPage.dart';
 
-class searchRelatedPerson extends StatelessWidget {
+class searchPurchasedCustomer extends StatelessWidget {
   var title;
-  static String route = "/searchRelatedPerson";
+  static String route = "/searchPurchased";
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -13,11 +13,11 @@ class searchRelatedPerson extends StatelessWidget {
         title: Text(title),
       ),
       body: customerListPage(
-        multipleSelection: true,
-        purchasing: false,
+        multipleSelection: false,
+        purchasing: true,
       ),
     );
   }
 
-  searchRelatedPerson({Key? key, required this.title}) : super(key: key);
+  searchPurchasedCustomer({Key? key, required this.title}) : super(key: key);
 }

@@ -1,69 +1,66 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:private_project/action/customerModule.dart';
 import 'package:private_project/credentials/userCredentialsForGS.dart';
 import 'package:private_project/model/customer.dart';
 import 'package:private_project/model/inventory.dart';
 import 'package:private_project/widgets/customer/insertField/relatedPersonField.dart';
 import 'package:private_project/widgets/inventory/insertField/barCodeField.dart';
+import 'package:private_project/widgets/productCode/purchasedCustomerField.dart';
 import 'package:private_project/widgets/purchase/makePurchaseButton.dart';
 import 'package:provider/provider.dart';
 
-class markPurchaseWidget extends StatefulWidget {
-  const markPurchaseWidget({Key? key, required this.title}) : super(key: key);
+class makePurchaseWidget extends StatefulWidget {
+  static String route = "/makePurchaseWidget";
+  makePurchaseWidget({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  State<StatefulWidget> createState() => markPurchaseState();
+  State<StatefulWidget> createState() => makePurchaseState();
 }
 
-class markPurchaseState extends State<markPurchaseWidget> {
-  static Customer newCustomer = Customer();
-
+class makePurchaseState extends State<makePurchaseWidget> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    newCustomer = Customer();
-    // TODO: implement build
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider<Customer>(
-            create: (context) {
-              return newCustomer;
-            },
-          ),
-        ],
-        child: Builder(builder: (BuildContext context) {
-          BuildContext rootContext = context;
-          return Scaffold(
-              appBar: AppBar(
-                title: Text(widget.title),
-              ),
-              body: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: SingleChildScrollView(
-                      child: Form(
-                          autovalidateMode: AutovalidateMode.always,
-                          child: Column(children: <Widget>[
-                            Padding(
-                                padding: EdgeInsets.all(10),
-                                child: barCodeField()),
-                            Padding(
-                                padding: EdgeInsets.all(10),
-                                child: makePurchaseButton(pressedButton: submitButtonPressed,))
-                          ])))));
-        }));
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Padding(
+            padding: EdgeInsets.all(10),
+            child: SingleChildScrollView(
+                child: Form(
+                    autovalidateMode: AutovalidateMode.always,
+                    child: Column(children: <Widget>[
+                      Padding(
+                          padding: EdgeInsets.all(10), child: barCodeField()),
+                      Padding(
+                          padding: EdgeInsets.all(10),
+                          child: purchasedCustomerField()),
+                      Padding(
+                          padding: EdgeInsets.all(10),
+                          child: makePurchaseButton(
+                            pressedButton: submitButtonPressed,
+                          ))
+                    ])))));
   }
 
   Future<void> submitButtonPressed() async {
     String barcodeText = barCodeField.barCodeFieldController.text;
-    
+
     if (barcodeText == "") {
       _showAlertDialog();
     } else {
-      
-      Inventory? editInventory = await userCredentialsForGS.searchInventoryCell();
+      Inventory? editInventory =
+          await userCredentialsForGS.searchInventoryCell();
+      if (editInventory != null) {
+        editInventory.purchaseCustomer = "aarontong";
+        editInventory.soldTimeString = DateTime.now().toString();
 
-      _showSuccessDialog().then((value) => Navigator.pop(context));
+        await userCredentialsForGS.insertInventory(editInventory);
+        _showSuccessDialog().then((value) => Navigator.pop(context));
+      }
     }
   }
 
@@ -101,7 +98,7 @@ class markPurchaseState extends State<markPurchaseWidget> {
 
           return AlertDialog(
             title: Text("Input Success"),
-            content: Text("Customer info has been saved"),
+            content: Text("Purchase record can be saved now. Thanks!"),
             actions: [
               okAction,
             ],

@@ -4,12 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:private_project/action/customerModule.dart';
 import 'package:private_project/widgets/customer/insertField/relatedPersonField.dart';
 import 'package:private_project/widgets/customer/searchCustomerInfo.dart';
+import 'package:private_project/widgets/customer/searchPurchasedCustomer.dart';
+import 'package:private_project/widgets/purchase/makePurchase.dart';
+
 import '../../model/customer.dart';
 import 'package:private_project/widgets/customer/searchCustomer.dart';
 
 class customerListPage extends StatefulWidget {
-  final bool multipleSelection;
-  const customerListPage({Key? key, required this.multipleSelection})
+  final bool multipleSelection, purchasing;
+  const customerListPage(
+      {Key? key, required this.multipleSelection, required this.purchasing})
       : super(key: key);
   static String route = "/customerListPage";
 
@@ -19,6 +23,8 @@ class customerListPage extends StatefulWidget {
 
 class customerListState extends State<customerListPage> {
   late customerModule cm;
+  int _value = 0;
+
   bool refetchOriginalList = true;
 
   static String searchWord = "";
@@ -122,23 +128,34 @@ class customerListState extends State<customerListPage> {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: filteredCustomerList.length,
                       itemBuilder: (BuildContext context, int index) {
+                        String cardTitleString =
+                            filteredCustomerList[index].enName +
+                                "\t" +
+                                filteredCustomerList[index].mobileNumber;
                         return ExpansionTile(
                           tilePadding: EdgeInsets.all(10),
                           title: widget.multipleSelection
                               ? CheckboxListTile(
                                   value: selectedCustomerList
                                       .contains(filteredCustomerList[index]),
-                                  title: Text(filteredCustomerList[index]
-                                          .enName +
-                                      "\t" +
-                                      filteredCustomerList[index].mobileNumber),
+                                  title: Text(cardTitleString),
                                   controlAffinity:
                                       ListTileControlAffinity.leading,
                                   onChanged: (isChecked) => _itemChange(
                                       filteredCustomerList[index], isChecked!))
-                              : Text(filteredCustomerList[index].enName +
-                                  "\t" +
-                                  filteredCustomerList[index].mobileNumber),
+                              : widget.purchasing
+                                  ? ListTile(
+                                      title: Text(cardTitleString),
+                                      leading: Radio(
+                                        value: index,
+                                        groupValue: _value,
+                                        activeColor: Color(0xFF6200EE),
+                                        onChanged: (value) {
+                                          valueChanged(value as int);
+                                        },
+                                      ),
+                                    )
+                                  : Text(cardTitleString),
                           children: [
                             ListTile(
                               title: Text("English Name:\t" +
@@ -214,7 +231,18 @@ class customerListState extends State<customerListPage> {
     filteredCustomerList = [];
     customerList = [];
     selectedCustomerList = [];
-    Navigator.popAndPushNamed(context, searchCustomerWidget.route);
+    if (widget.purchasing) {
+      Navigator.popAndPushNamed(context, makePurchaseWidget.route);
+    } else {
+      Navigator.popAndPushNamed(context, searchCustomerWidget.route);
+    }
     return new Future.value(true);
+  }
+
+  void valueChanged(int value) {
+    setState(() {
+      _value = value;
+      cm.currentSelectedCustomer = filteredCustomerList[value];
+    });
   }
 }
