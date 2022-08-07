@@ -21,7 +21,7 @@ class productModule {
   productModule.internal();
 
   Future<void> addNewProduct(Product product) async {
-    await userCredentialsForGS.insertProduct([product.toJson()]);
+    await userCredentialsForGS.insertProduct(product);
 
     await updateProductListCache();
   }

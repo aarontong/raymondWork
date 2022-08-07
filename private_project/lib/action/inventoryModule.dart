@@ -34,7 +34,7 @@ class inventoryModule {
         productCode,
       ];
   Future<void> addNewInventory(Inventory inventory, String barCode) async {
-    await userCredentialsForGS.insertInventory([inventory.toJson()]);
+    await userCredentialsForGS.insertInventory(inventory);
 
     await updateInventoryListCache();
   }

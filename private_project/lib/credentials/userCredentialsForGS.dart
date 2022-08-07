@@ -6,6 +6,7 @@ import 'package:private_project/action/inventoryModule.dart';
 import 'package:private_project/action/productModule.dart';
 import 'package:private_project/model/customer.dart';
 import 'package:private_project/model/inventory.dart';
+import 'package:private_project/model/product.dart';
 
 class userCredentialsForGS {
   static const String _credentials = r'''
@@ -51,9 +52,9 @@ class userCredentialsForGS {
     }
   }
 
-  static Future insertUser(List<Map<String, dynamic>> rowList) async {
+  static Future insertUser(Customer newCustomer) async {
     if (_customerSheet == null) return;
-    await _customerSheet!.values.map.appendRows(rowList);
+    await _customerSheet!.values.map.insertRowByKey(newCustomer.mobileNumber, newCustomer.toJson());
   }
 
   static Future<String> getAllUser() async {
@@ -64,9 +65,9 @@ class userCredentialsForGS {
     return users == null ? "" : jsonString;
   }
 
-  static Future insertInventory(List<Map<String, dynamic>> rowList) async {
+  static Future insertInventory(Inventory inventory) async {
     if (_inventorySheet == null) return;
-    await _inventorySheet!.values.map.appendRows(rowList);
+    await _inventorySheet!.values.map.insertRowByKey(inventory.barCode, inventory.toJson());
   }
 
   static Future<String> getAllInventory() async {
@@ -78,9 +79,9 @@ class userCredentialsForGS {
     return inventories == null ? "" : jsonString;
   }
 
-  static Future insertProduct(List<Map<String, dynamic>> rowList) async {
+  static Future insertProduct(Product product) async {
     if (_productSheet == null) return;
-    await _productSheet!.values.map.appendRows(rowList);
+    await _productSheet!.values.map.insertRowByKey(product.productCode, product.toJson());
   }
 
   static Future<String> getAllProduct() async {
@@ -89,5 +90,14 @@ class userCredentialsForGS {
     List<Inventory> productList = products!.map(Inventory.fromJson).toList();
     String jsonString = jsonEncode(productList);
     return products == null ? "" : jsonString;
+  }
+
+  static Future<Inventory?> searchInventoryCell() async{
+    if(_inventorySheet == null) return null;
+    final oldInventory = await _inventorySheet!.cells.findByValue("asdfdsafsdas");
+    final editInventory = await _inventorySheet!.values.map.allRows();
+    List<Inventory> inventoryList = editInventory!.map(Inventory.fromJson).toList();
+    Inventory newInventory = inventoryList.elementAt(oldInventory.first.row - 2);
+    return newInventory;
   }
 }

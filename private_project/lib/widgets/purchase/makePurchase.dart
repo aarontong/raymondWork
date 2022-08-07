@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:private_project/credentials/userCredentialsForGS.dart';
 import 'package:private_project/model/customer.dart';
+import 'package:private_project/model/inventory.dart';
 import 'package:private_project/widgets/customer/insertField/relatedPersonField.dart';
 import 'package:private_project/widgets/inventory/insertField/barCodeField.dart';
+import 'package:private_project/widgets/purchase/makePurchaseButton.dart';
 import 'package:provider/provider.dart';
 
 class markPurchaseWidget extends StatefulWidget {
@@ -46,8 +49,63 @@ class markPurchaseState extends State<markPurchaseWidget> {
                                 child: barCodeField()),
                             Padding(
                                 padding: EdgeInsets.all(10),
-                                child: relatedPersonField())
+                                child: makePurchaseButton(pressedButton: submitButtonPressed,))
                           ])))));
         }));
+  }
+
+  Future<void> submitButtonPressed() async {
+    String barcodeText = barCodeField.barCodeFieldController.text;
+    
+    if (barcodeText == "") {
+      _showAlertDialog();
+    } else {
+      
+      Inventory? editInventory = await userCredentialsForGS.searchInventoryCell();
+
+      _showSuccessDialog().then((value) => Navigator.pop(context));
+    }
+  }
+
+  Future<void> _showAlertDialog() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          Widget okAction = TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.of(context).pop(); // dismiss dialog
+            },
+          );
+
+          return AlertDialog(
+            title: Text("Input Missing"),
+            content: Text("Please enter data in all fields"),
+            actions: [
+              okAction,
+            ],
+          );
+        });
+  }
+
+  Future<void> _showSuccessDialog() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          Widget okAction = TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          );
+
+          return AlertDialog(
+            title: Text("Input Success"),
+            content: Text("Customer info has been saved"),
+            actions: [
+              okAction,
+            ],
+          );
+        });
   }
 }
