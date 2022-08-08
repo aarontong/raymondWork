@@ -15,13 +15,13 @@ class Inventory {
       required this.importTimeString,
       required this.soldTimeString,
       required this.purchaseCustomer});
-
+  var epoch = new DateTime(1899, 12, 30);
   Inventory.fromJson(Map<String, dynamic> json)
       : barCode = json["barCode"],
         productCode = json["productCode"],
         purchaseCustomer = json["purchaseCustomer"],
         importTimeString = json["importTime"],
-        soldTimeString = json["soldTime"];
+        soldTimeString = json["soldTime"] == "" ? "" : json["soldTime"];
 
   Map<String, dynamic> toJson() => {
         inventoryModule.barCode: barCode,

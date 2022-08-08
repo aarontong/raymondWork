@@ -54,6 +54,7 @@ class inventoryListState extends State<inventoryListPage> {
                     inventory.barCode.startsWith(searchWord))
                 .toList();
           }
+
           return SingleChildScrollView(
               child: Center(
                   child: Column(children: [
@@ -95,6 +96,26 @@ class inventoryListState extends State<inventoryListPage> {
                       ListTile(
                         title: Text("Bar Code:\t" +
                             filteredInventoryList[index].barCode),
+                      ),
+                      ListTile(
+                        title: Text("Product Code:\t" +
+                            filteredInventoryList[index].productCode),
+                      ),
+                      SizedBox(height: 10),
+                      SizedBox(height: 10),
+                      ListTile(
+                        title: Text("Import Time:\t" +
+                            filteredInventoryList[index].importTimeString),
+                      ),
+                      SizedBox(height: 10),
+                      ListTile(
+                        title: Text("Sold Time:\t" +
+                            filteredInventoryList[index].soldTimeString),
+                      ),
+                      SizedBox(height: 10),
+                      ListTile(
+                        title: Text("Purchased By:\t" +
+                            filteredInventoryList[index].purchaseCustomer),
                       ),
                       SizedBox(height: 10),
                     ],

@@ -50,6 +50,7 @@ dependencies:
   intl: ^0.17.0
   http: ^0.13.3
   gsheets: ^0.4.2
+  syncfusion_flutter_pdf: ^20.2.43
 dev_dependencies:
   flutter_test:
     sdk: flutter
