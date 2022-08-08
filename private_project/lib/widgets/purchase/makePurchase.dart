@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:private_project/action/customerModule.dart';
+import 'package:private_project/action/pdfModule.dart';
 import 'package:private_project/credentials/userCredentialsForGS.dart';
 import 'package:private_project/model/customer.dart';
 import 'package:private_project/model/inventory.dart';
@@ -21,8 +22,12 @@ class makePurchaseWidget extends StatefulWidget {
 
 class makePurchaseState extends State<makePurchaseWidget> {
   customerModule cm = customerModule.searchCustomer();
+  pdfModule pm = pdfModule();
   @override
   Widget build(BuildContext context) {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    pm.initDocument();
     // TODO: implement build
     return Scaffold(
         appBar: AppBar(
