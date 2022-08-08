@@ -19,11 +19,11 @@ class purchasedCustomerState extends State<purchasedCustomerField> {
     // TODO: implement build
     customerModule cm = customerModule.searchCustomer();
     purchasedCustomerField.purchasedCustomerController.text =
-        cm.currentSelectedCustomer.enName;
+        cm.currentSelectedCustomer.mobileNumber;
 
     return TextFormField(
       decoration: new InputDecoration(
-        hintText: "Purchased Customer:",
+        hintText: "Purchased Customer (mobile):",
         border: UnderlineInputBorder(),
         suffixIcon: IconButton(
           onPressed: pushToSearchPage,
@@ -41,6 +41,7 @@ class purchasedCustomerState extends State<purchasedCustomerField> {
       // cm.currentSelectedCustomer.relatedPerson = [];
       purchasedCustomerField.purchasedCustomerString = "";
     });
-    Navigator.pushNamed(context, searchPurchasedCustomer.route);
+    Navigator.pushNamed(context, searchPurchasedCustomer.route)
+        .then((_) => setState(() {}));
   }
 }

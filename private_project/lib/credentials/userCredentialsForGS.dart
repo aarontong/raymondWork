@@ -54,50 +54,59 @@ class userCredentialsForGS {
 
   static Future insertUser(Customer newCustomer) async {
     if (_customerSheet == null) return;
-    await _customerSheet!.values.map.insertRowByKey(newCustomer.mobileNumber, newCustomer.toJson());
+    await _customerSheet!.values.map
+        .insertRowByKey(newCustomer.mobileNumber, newCustomer.toJson());
   }
 
   static Future<String> getAllUser() async {
     if (_customerSheet == null) return "";
     final users = await _customerSheet!.values.map.allRows();
-    List<Customer> customerList = users!.map(Customer.fromJson).toList();
+    if (users == null) return "";
+    List<Customer> customerList = users.map(Customer.fromJson).toList();
     String jsonString = jsonEncode(customerList);
     return users == null ? "" : jsonString;
   }
 
   static Future insertInventory(Inventory inventory) async {
     if (_inventorySheet == null) return;
-    await _inventorySheet!.values.map.insertRowByKey(inventory.barCode, inventory.toJson());
+    await _inventorySheet!.values.map
+        .insertRowByKey(inventory.barCode, inventory.toJson());
   }
 
   static Future<String> getAllInventory() async {
     if (_inventorySheet == null) return "";
     final inventories = await _inventorySheet!.values.map.allRows();
+    if (inventories == null || inventories.length == 0) return "";
     List<Inventory> inventoryList =
-        inventories!.map(Inventory.fromJson).toList();
+        inventories.map(Inventory.fromJson).toList();
     String jsonString = jsonEncode(inventoryList);
     return inventories == null ? "" : jsonString;
   }
 
   static Future insertProduct(Product product) async {
     if (_productSheet == null) return;
-    await _productSheet!.values.map.insertRowByKey(product.productCode, product.toJson());
+    await _productSheet!.values.map
+        .insertRowByKey(product.productCode, product.toJson());
   }
 
   static Future<String> getAllProduct() async {
     if (_productSheet == null) return "";
     final products = await _productSheet!.values.map.allRows();
-    List<Inventory> productList = products!.map(Inventory.fromJson).toList();
+    if (products == null) return "";
+    List<Inventory> productList = products.map(Inventory.fromJson).toList();
     String jsonString = jsonEncode(productList);
     return products == null ? "" : jsonString;
   }
 
-  static Future<Inventory?> searchInventoryCell() async{
-    if(_inventorySheet == null) return null;
-    final oldInventory = await _inventorySheet!.cells.findByValue("asdfdsafsdas");
+  static Future<Inventory?> searchInventoryCell(String barCode) async {
+    if (_inventorySheet == null) return null;
+    final oldInventory = await _inventorySheet!.cells.findByValue(barCode);
     final editInventory = await _inventorySheet!.values.map.allRows();
-    List<Inventory> inventoryList = editInventory!.map(Inventory.fromJson).toList();
-    Inventory newInventory = inventoryList.elementAt(oldInventory.first.row - 2);
+    if (oldInventory == null || oldInventory.length == 0) return null;
+    List<Inventory> inventoryList =
+        editInventory!.map(Inventory.fromJson).toList();
+    Inventory newInventory =
+        inventoryList.elementAt(oldInventory.first.row - 2);
     return newInventory;
   }
 }

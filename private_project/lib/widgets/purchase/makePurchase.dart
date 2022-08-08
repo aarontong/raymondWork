@@ -20,6 +20,7 @@ class makePurchaseWidget extends StatefulWidget {
 }
 
 class makePurchaseState extends State<makePurchaseWidget> {
+  customerModule cm = customerModule.searchCustomer();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -53,15 +54,40 @@ class makePurchaseState extends State<makePurchaseWidget> {
       _showAlertDialog();
     } else {
       Inventory? editInventory =
-          await userCredentialsForGS.searchInventoryCell();
+          await userCredentialsForGS.searchInventoryCell(barcodeText);
       if (editInventory != null) {
-        editInventory.purchaseCustomer = "aarontong";
+        editInventory.purchaseCustomer =
+            cm.currentSelectedCustomer.mobileNumber;
         editInventory.soldTimeString = DateTime.now().toString();
 
         await userCredentialsForGS.insertInventory(editInventory);
-        _showSuccessDialog().then((value) => Navigator.pop(context));
+        _showSuccessDialog();
+        barCodeField.barCodeFieldController.text = "";
+      } else {
+        _showBarcodeInvalidAlert();
       }
     }
+  }
+
+  Future<void> _showBarcodeInvalidAlert() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          Widget okAction = TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.of(context).pop(); // dismiss dialog
+            },
+          );
+
+          return AlertDialog(
+            title: Text("Error"),
+            content: Text("Bar code is not in inventory list"),
+            actions: [
+              okAction,
+            ],
+          );
+        });
   }
 
   Future<void> _showAlertDialog() async {
@@ -92,7 +118,7 @@ class makePurchaseState extends State<makePurchaseWidget> {
           Widget okAction = TextButton(
             child: Text("OK"),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.of(context).pop(); // dismiss dialog
             },
           );
 

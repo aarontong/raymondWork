@@ -78,7 +78,10 @@ class addNewInventoryState extends State<addNewInventoryWidget> {
       Product newProduct =
           Product(productCode: productCode, productLine: productLine);
       pm.addNewProduct(newProduct);
-      _showSuccessDialog().then((value) => Navigator.pop(context));
+      _showSuccessDialog().then((value) => {
+            Navigator.pop(context),
+            barCodeField.barCodeFieldController.text = ""
+          });
     }
   }
 

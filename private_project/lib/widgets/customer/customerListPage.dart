@@ -23,7 +23,7 @@ class customerListPage extends StatefulWidget {
 
 class customerListState extends State<customerListPage> {
   late customerModule cm;
-  int _value = 0;
+  int _value = -1;
 
   bool refetchOriginalList = true;
 
@@ -231,11 +231,7 @@ class customerListState extends State<customerListPage> {
     filteredCustomerList = [];
     customerList = [];
     selectedCustomerList = [];
-    if (widget.purchasing) {
-      Navigator.popAndPushNamed(context, makePurchaseWidget.route);
-    } else {
-      Navigator.popAndPushNamed(context, searchCustomerWidget.route);
-    }
+    Navigator.pop(context);
     return new Future.value(true);
   }
 
