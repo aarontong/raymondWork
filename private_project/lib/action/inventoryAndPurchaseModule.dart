@@ -14,7 +14,9 @@ class inventoryAndPurchaseModule {
   static String barCode = "barCode";
   static String importTime = "importTime";
   static String soldTime = "soldTime";
-  static String customer = "customer";
+  static String customerPhone = "customer phone";
+  static String customerName = "customer name";
+
   static String productCode = "productCode";
   static String receiptID = "receiptID";
 
@@ -28,8 +30,15 @@ class inventoryAndPurchaseModule {
   }
   inventoryAndPurchaseModule.internal();
 
-  static List<String> getWorksheetTitle() =>
-      [barCode, importTime, soldTime, customer, productCode, receiptID];
+  static List<String> getWorksheetTitle() => [
+        barCode,
+        importTime,
+        productCode,
+        soldTime,
+        customerPhone,
+        customerName,
+        receiptID
+      ];
   Future<void> addNewInventory(Inventory inventory, String barCode) async {
     await userCredentialsForGS.insertInventory(inventory);
 

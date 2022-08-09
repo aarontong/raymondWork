@@ -25,7 +25,7 @@ class userCredentialsForGS {
   static const String _sheetID = "1ShajYk2Mb_69VLwRto1FAYryvjf-B2vofblcbfFa3nk";
   static final _gsheets = GSheets(_credentials);
   static Worksheet? _customerSheet;
-  static Worksheet? _inventorySheet;
+  static Worksheet? _inventoryPurchaseSheet;
   static Worksheet? _productSheet;
 
   static Future init() async {
@@ -34,9 +34,10 @@ class userCredentialsForGS {
     final customerFirstRow = customerModule.getWorksheetTitle();
     _customerSheet!.values.insertRow(1, customerFirstRow);
 
-    _inventorySheet = await getWorksheet(spreadsheet, title: "Inventory");
+    _inventoryPurchaseSheet =
+        await getWorksheet(spreadsheet, title: "Inventory/Purchase");
     final inventoryFirstRow = inventoryAndPurchaseModule.getWorksheetTitle();
-    _inventorySheet!.values.insertRow(1, inventoryFirstRow);
+    _inventoryPurchaseSheet!.values.insertRow(1, inventoryFirstRow);
 
     _productSheet = await getWorksheet(spreadsheet, title: "Product");
     final productFirstRow = productModule.getWorksheetTitle();
@@ -68,14 +69,14 @@ class userCredentialsForGS {
   }
 
   static Future insertInventory(Inventory inventory) async {
-    if (_inventorySheet == null) return;
-    await _inventorySheet!.values.map
+    if (_inventoryPurchaseSheet == null) return;
+    await _inventoryPurchaseSheet!.values.map
         .insertRowByKey(inventory.barCode, inventory.toJson());
   }
 
   static Future<String> getAllInventory() async {
-    if (_inventorySheet == null) return "";
-    final inventories = await _inventorySheet!.values.map.allRows();
+    if (_inventoryPurchaseSheet == null) return "";
+    final inventories = await _inventoryPurchaseSheet!.values.map.allRows();
     if (inventories == null || inventories.length == 0) return "";
     List<Inventory> inventoryList =
         inventories.map(Inventory.fromJson).toList();
@@ -99,9 +100,10 @@ class userCredentialsForGS {
   }
 
   static Future<Inventory?> searchInventoryCell(String barCode) async {
-    if (_inventorySheet == null) return null;
-    final oldInventory = await _inventorySheet!.cells.findByValue(barCode);
-    final editInventory = await _inventorySheet!.values.map.allRows();
+    if (_inventoryPurchaseSheet == null) return null;
+    final oldInventory =
+        await _inventoryPurchaseSheet!.cells.findByValue(barCode);
+    final editInventory = await _inventoryPurchaseSheet!.values.map.allRows();
     if (oldInventory == null || oldInventory.length == 0) return null;
     List<Inventory> inventoryList =
         editInventory!.map(Inventory.fromJson).toList();
