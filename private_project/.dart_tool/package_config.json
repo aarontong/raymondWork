@@ -188,6 +188,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_email_sender",
+      "rootUri": "file:///Users/aarontong/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_email_sender-5.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///Users/aarontong/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-2.0.1",
       "packageUri": "lib/",
@@ -626,7 +632,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-08-08T15:56:58.797732Z",
+  "generated": "2022-08-09T05:45:40.549024Z",
   "generator": "pub",
   "generatorVersion": "2.17.6"
 }
