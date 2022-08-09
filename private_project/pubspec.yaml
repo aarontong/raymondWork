@@ -52,6 +52,7 @@ dependencies:
   gsheets: ^0.4.2
   syncfusion_flutter_pdf: ^20.2.43
   flutter_email_sender:
+  flutter_pdf_printer: 1.1.0+1
 dev_dependencies:
   flutter_test:
     sdk: flutter

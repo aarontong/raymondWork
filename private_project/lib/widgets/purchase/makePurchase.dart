@@ -26,7 +26,6 @@ class makePurchaseState extends State<makePurchaseWidget> {
   @override
   Widget build(BuildContext context) {
     WidgetsFlutterBinding.ensureInitialized();
-
     pm.initDocument();
     // TODO: implement build
     return Scaffold(
@@ -66,6 +65,7 @@ class makePurchaseState extends State<makePurchaseWidget> {
         editInventory.soldTimeString = DateTime.now().toString();
 
         await userCredentialsForGS.insertInventory(editInventory);
+        pm.initDocument();
         _showSuccessDialog();
         barCodeField.barCodeFieldController.text = "";
       } else {
