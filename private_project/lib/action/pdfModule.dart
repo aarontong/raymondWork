@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:flutter_pdf_printer/flutter_pdf_printer.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:printing/printing.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:flutter/services.dart';
 
@@ -40,6 +40,7 @@ class pdfModule {
     pdfStoragePath = tempDir.path;
     File('$pdfStoragePath/copy.pdf').writeAsBytesSync(await document.save());
     File tempFile = File('$pdfStoragePath/copy.pdf');
+    printDocument(tempFile);
 
     //Dispose the document.
     document.dispose();
@@ -74,6 +75,7 @@ class pdfModule {
   }
 
   void printDocument(File file) async {
-    await FlutterPdfPrinter.printFile(file.path);
+    //await FlutterPdfPrinter.printFile(file.path);
+    await Printing.layoutPdf(onLayout: (_) async => file.readAsBytes());
   }
 }

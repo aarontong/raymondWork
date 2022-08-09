@@ -60,9 +60,8 @@ class makePurchaseState extends State<makePurchaseWidget> {
       Inventory? editInventory =
           await userCredentialsForGS.searchInventoryCell(barcodeText);
       if (editInventory != null) {
-        editInventory.purchaseCustomer =
-            cm.currentSelectedCustomer.mobileNumber;
-        editInventory.soldTimeString = DateTime.now().toString();
+        //editInventory.customer = cm.currentSelectedCustomer.mobileNumber;
+        // editInventory.soldTimeString = DateTime.now().toString();
 
         await userCredentialsForGS.insertInventory(editInventory);
         pm.initDocument();

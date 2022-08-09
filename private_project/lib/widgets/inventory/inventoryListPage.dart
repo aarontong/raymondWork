@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:private_project/action/inventoryModule.dart';
+import 'package:private_project/action/inventoryAndPurchaseModule.dart';
 import 'package:private_project/model/inventory.dart';
 
 class inventoryListPage extends StatefulWidget {
@@ -13,7 +13,7 @@ class inventoryListPage extends StatefulWidget {
 }
 
 class inventoryListState extends State<inventoryListPage> {
-  late inventoryModule im;
+  late inventoryAndPurchaseModule im;
   bool refetchOriginalList = true;
 
   static String searchWord = "";
@@ -24,7 +24,7 @@ class inventoryListState extends State<inventoryListPage> {
   static TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    im = inventoryModule();
+    im = inventoryAndPurchaseModule();
 
     // TODO: implement build
     return new Scaffold(
@@ -108,6 +108,7 @@ class inventoryListState extends State<inventoryListPage> {
                             filteredInventoryList[index].importTimeString),
                       ),
                       SizedBox(height: 10),
+                      /*
                       ListTile(
                         title: Text("Sold Time:\t" +
                             filteredInventoryList[index].soldTimeString),
@@ -115,9 +116,10 @@ class inventoryListState extends State<inventoryListPage> {
                       SizedBox(height: 10),
                       ListTile(
                         title: Text("Purchased By:\t" +
-                            filteredInventoryList[index].purchaseCustomer),
+                            filteredInventoryList[index].customer),
                       ),
                       SizedBox(height: 10),
+                      */
                     ],
                   );
                 }),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:private_project/action/inventoryModule.dart';
+import 'package:private_project/action/inventoryAndPurchaseModule.dart';
 import 'package:private_project/action/productModule.dart';
 import 'package:private_project/model/product.dart';
 
@@ -69,10 +69,8 @@ class addNewInventoryState extends State<addNewInventoryWidget> {
       Inventory inventory = new Inventory(
           barCode: barCode,
           productCode: productCode,
-          importTimeString: DateTime.now().toString(),
-          soldTimeString: "",
-          purchaseCustomer: "");
-      inventoryModule im = inventoryModule();
+          importTimeString: DateTime.now().toString());
+      inventoryAndPurchaseModule im = inventoryAndPurchaseModule();
       productModule pm = productModule();
       await im.addNewInventory(inventory, barCode);
       Product newProduct =

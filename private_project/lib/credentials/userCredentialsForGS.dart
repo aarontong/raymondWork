@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:gsheets/gsheets.dart';
 import 'package:private_project/action/customerModule.dart';
-import 'package:private_project/action/inventoryModule.dart';
+import 'package:private_project/action/inventoryAndPurchaseModule.dart';
 import 'package:private_project/action/productModule.dart';
 import 'package:private_project/model/customer.dart';
 import 'package:private_project/model/inventory.dart';
@@ -35,7 +35,7 @@ class userCredentialsForGS {
     _customerSheet!.values.insertRow(1, customerFirstRow);
 
     _inventorySheet = await getWorksheet(spreadsheet, title: "Inventory");
-    final inventoryFirstRow = inventoryModule.getWorksheetTitle();
+    final inventoryFirstRow = inventoryAndPurchaseModule.getWorksheetTitle();
     _inventorySheet!.values.insertRow(1, inventoryFirstRow);
 
     _productSheet = await getWorksheet(spreadsheet, title: "Product");

@@ -10,29 +10,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/inventory.dart';
 
-class inventoryModule {
+class inventoryAndPurchaseModule {
   static String barCode = "barCode";
   static String importTime = "importTime";
   static String soldTime = "soldTime";
-  static String purchaseCustomer = "purchaseCustomer";
+  static String customer = "customer";
   static String productCode = "productCode";
+  static String receiptID = "receiptID";
 
-  static final inventoryModule _inventoryModule = inventoryModule.internal();
+  static final inventoryAndPurchaseModule _inventoryAndPurchaseModule =
+      inventoryAndPurchaseModule.internal();
   static late int timestamp1;
   static String inventoryListStringJson = "";
 
-  factory inventoryModule() {
-    return _inventoryModule;
+  factory inventoryAndPurchaseModule() {
+    return _inventoryAndPurchaseModule;
   }
-  inventoryModule.internal();
+  inventoryAndPurchaseModule.internal();
 
-  static List<String> getWorksheetTitle() => [
-        barCode,
-        importTime,
-        soldTime,
-        purchaseCustomer,
-        productCode,
-      ];
+  static List<String> getWorksheetTitle() =>
+      [barCode, importTime, soldTime, customer, productCode, receiptID];
   Future<void> addNewInventory(Inventory inventory, String barCode) async {
     await userCredentialsForGS.insertInventory(inventory);
 
