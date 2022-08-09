@@ -77,10 +77,12 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
+  static GlobalKey globalKey = new GlobalKey(debugLabel: 'btm_app_bar');
+
   int counter = 0;
   List<Widget> tabs = [
     searchCustomerWidget(title: "Search Customer"),
@@ -94,8 +96,11 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-
-      this.counter = index;
+      if (this.counter == 2 &&
+          makePurchaseState.purchaseInventoryList.length > 0) {
+      } else {
+        this.counter = index;
+      }
     });
   }
 
@@ -113,6 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: tabs[counter],
       bottomNavigationBar: BottomNavigationBar(
+        key: globalKey,
         iconSize: 20,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.call), label: 'Customer'),
@@ -127,5 +133,11 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
     );
+  }
+
+  static changeTab() {
+    BottomNavigationBar navigationBar =
+        globalKey.currentWidget as BottomNavigationBar;
+    navigationBar.onTap!(0);
   }
 }

@@ -47,10 +47,10 @@ class barCodeFieldState extends State<barCodeField> {
   }
 
   Future<void> scanBarCode() async {
-    setState(() async {
-      barCodeField.barCodeFieldController.text =
-          await FlutterBarcodeScanner.scanBarcode(
-              "#ff6666", "Cancel", true, ScanMode.DEFAULT);
+    String barCode = await FlutterBarcodeScanner.scanBarcode(
+        "#ff6666", "Cancel", true, ScanMode.DEFAULT);
+    setState(() {
+      barCodeField.barCodeFieldController.text = barCode;
     });
   }
 }

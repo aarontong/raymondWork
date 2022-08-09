@@ -23,7 +23,7 @@ class makePurchaseButton extends StatelessWidget {
             onPressed: () {
               pressedButton();
             },
-            child: Text("Make Purchase")),
+            child: Text("Add Item")),
       ),
     );
   }

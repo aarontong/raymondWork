@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:private_project/action/customerModule.dart';
 import 'package:private_project/action/pdfModule.dart';
 import 'package:private_project/credentials/userCredentialsForGS.dart';
+import 'package:private_project/main.dart';
 import 'package:private_project/model/customer.dart';
 import 'package:private_project/model/inventory.dart';
+import 'package:private_project/model/purchase.dart';
 import 'package:private_project/widgets/customer/insertField/relatedPersonField.dart';
 import 'package:private_project/widgets/inventory/insertField/barCodeField.dart';
 import 'package:private_project/widgets/productCode/purchasedCustomerField.dart';
@@ -21,6 +23,9 @@ class makePurchaseWidget extends StatefulWidget {
 }
 
 class makePurchaseState extends State<makePurchaseWidget> {
+  static List<Inventory> purchaseInventoryList = [];
+  GlobalKey globalKey = new GlobalKey(debugLabel: 'btm_app_bar');
+
   customerModule cm = customerModule.searchCustomer();
   pdfModule pm = pdfModule();
   @override
@@ -28,7 +33,7 @@ class makePurchaseState extends State<makePurchaseWidget> {
     WidgetsFlutterBinding.ensureInitialized();
     pm.initDocument();
     // TODO: implement build
-    return Scaffold(
+    return new Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
         ),
@@ -60,10 +65,11 @@ class makePurchaseState extends State<makePurchaseWidget> {
       Inventory? editInventory =
           await userCredentialsForGS.searchInventoryCell(barcodeText);
       if (editInventory != null) {
+        purchaseInventoryList.add(editInventory);
         //editInventory.customer = cm.currentSelectedCustomer.mobileNumber;
         // editInventory.soldTimeString = DateTime.now().toString();
 
-        await userCredentialsForGS.insertInventory(editInventory);
+        //   await userCredentialsForGS.insertInventory(editInventory);
         pm.initDocument();
         _showSuccessDialog();
         barCodeField.barCodeFieldController.text = "";
@@ -119,20 +125,32 @@ class makePurchaseState extends State<makePurchaseWidget> {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
-          Widget okAction = TextButton(
-            child: Text("OK"),
+          Widget dismissAction = TextButton(
+            child: Text("Dismiss"),
+            onPressed: () {
+              Navigator.of(context).pop(); // dismiss dialog
+              MyHomePageState.changeTab();
+            },
+          );
+          Widget continueShoppintAction = TextButton(
+            child: Text("Continue Shopping"),
             onPressed: () {
               Navigator.of(context).pop(); // dismiss dialog
             },
           );
-
           return AlertDialog(
             title: Text("Input Success"),
             content: Text("Purchase record can be saved now. Thanks!"),
             actions: [
-              okAction,
+              continueShoppintAction,
+              dismissAction,
             ],
           );
         });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
