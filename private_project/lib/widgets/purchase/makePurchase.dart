@@ -11,6 +11,7 @@ import 'package:private_project/widgets/customer/insertField/relatedPersonField.
 import 'package:private_project/widgets/inventory/insertField/barCodeField.dart';
 import 'package:private_project/widgets/productCode/purchasedCustomerField.dart';
 import 'package:private_project/widgets/purchase/makePurchaseButton.dart';
+import 'package:private_project/widgets/purchase/purchaseConfirmDialog.dart';
 import 'package:provider/provider.dart';
 
 class makePurchaseWidget extends StatefulWidget {
@@ -23,6 +24,7 @@ class makePurchaseWidget extends StatefulWidget {
 }
 
 class makePurchaseState extends State<makePurchaseWidget> {
+  static bool purchaseConfirmed = false;
   static List<Inventory> purchaseInventoryList = [];
   GlobalKey globalKey = new GlobalKey(debugLabel: 'btm_app_bar');
 
@@ -32,6 +34,8 @@ class makePurchaseState extends State<makePurchaseWidget> {
   Widget build(BuildContext context) {
     WidgetsFlutterBinding.ensureInitialized();
     pm.initDocument();
+    var purchasedListWidget = SingleChildScrollView(child: Center(child: Text("")),);  
+
     // TODO: implement build
     return new Scaffold(
         appBar: AppBar(
@@ -48,12 +52,14 @@ class makePurchaseState extends State<makePurchaseWidget> {
                       Padding(
                           padding: EdgeInsets.all(10),
                           child: purchasedCustomerField()),
+                      purchaseConfirmed? purchasedListWidget:
                       Padding(
                           padding: EdgeInsets.all(10),
                           child: makePurchaseButton(
                             pressedButton: submitButtonPressed,
                           ))
                     ])))));
+
   }
 
   Future<void> submitButtonPressed() async {
@@ -128,7 +134,10 @@ class makePurchaseState extends State<makePurchaseWidget> {
           Widget dismissAction = TextButton(
             child: Text("Dismiss"),
             onPressed: () {
-              Navigator.of(context).pop(); // dismiss dialog
+              Navigator.of(context).pop(); 
+              setState(() {
+                purchaseConfirmed = true;
+              });
             },
           );
           Widget continueShoppintAction = TextButton(
