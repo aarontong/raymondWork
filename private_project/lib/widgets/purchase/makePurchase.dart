@@ -34,7 +34,37 @@ class makePurchaseState extends State<makePurchaseWidget> {
   Widget build(BuildContext context) {
     WidgetsFlutterBinding.ensureInitialized();
     pm.initDocument();
-    var purchasedListWidget = SingleChildScrollView(child: Center(child: Text("")),);  
+    var purchasedListWidget = SingleChildScrollView(child: Center(child: 
+                              Column(//crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children:<Widget>[
+                              ListView.builder(itemBuilder: (BuildContext context, index) => 
+                                                Padding(padding: EdgeInsets.all(10), 
+                                                child:Row(children: <Widget>[
+                                                  Expanded(child: Text("hello"),flex: 1,),
+                                                  Expanded(child: Text("there"),flex: 1,),
+                                                ],)),
+                                                itemCount: purchaseInventoryList.length,
+                                                shrinkWrap: true,
+                                                scrollDirection: Axis.vertical,
+                              ),
+                              SizedBox(
+                                    width: 150.0,
+                                    height: 50.0,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Colors.red,
+                                            width: 5,
+                                          ),
+                                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                                          color: Colors.white),
+                                      child: TextButton(
+                                          onPressed: () {
+                                          
+                                          },
+                                          child: Text("confirm purchase")),
+                                    ),
+                                  )],)),);  
 
     // TODO: implement build
     return new Scaffold(
