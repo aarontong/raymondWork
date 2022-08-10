@@ -40,7 +40,7 @@ class pdfModule {
     pdfStoragePath = tempDir.path;
     File('$pdfStoragePath/copy.pdf').writeAsBytesSync(await document.save());
     File tempFile = File('$pdfStoragePath/copy.pdf');
-    printDocument(tempFile);
+    //printDocument(tempFile);
 
     //Dispose the document.
     document.dispose();

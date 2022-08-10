@@ -129,14 +129,11 @@ class makePurchaseState extends State<makePurchaseWidget> {
             child: Text("Dismiss"),
             onPressed: () {
               Navigator.of(context).pop(); // dismiss dialog
-              MyHomePageState.changeTab();
             },
           );
           Widget continueShoppintAction = TextButton(
             child: Text("Continue Shopping"),
-            onPressed: () {
-              Navigator.of(context).pop(); // dismiss dialog
-            },
+            onPressed: () {},
           );
           return AlertDialog(
             title: Text("Input Success"),
@@ -148,9 +145,30 @@ class makePurchaseState extends State<makePurchaseWidget> {
           );
         });
   }
-
-  @override
-  void dispose() {
-    super.dispose();
+/*
+  void showPurchaseItemListDialog() {
+    DialogWidget alert = DialogWidget.alert(
+      closable: true,
+      style: DialogStyle.material,
+      title: "Title",
+      content: "Content",
+      actions: [
+        DialogAction(
+          title: "Button One",
+          handler: null,
+          isDestructive: true,
+        ),
+        DialogAction(
+          title: "Button Two",
+          handler: null,
+          isDefault: true,
+        ),
+      ],
+    );
+    DialogHelper().show(
+      context,
+      alert,
+    );
   }
+  */
 }

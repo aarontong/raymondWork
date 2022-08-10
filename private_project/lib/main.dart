@@ -98,6 +98,7 @@ class MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       if (this.counter == 2 &&
           makePurchaseState.purchaseInventoryList.length > 0) {
+        showClearPurchaseAlert();
       } else {
         this.counter = index;
       }
@@ -139,5 +140,34 @@ class MyHomePageState extends State<MyHomePage> {
     BottomNavigationBar navigationBar =
         globalKey.currentWidget as BottomNavigationBar;
     navigationBar.onTap!(0);
+  }
+
+  Future<void> showClearPurchaseAlert() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          Widget yesButton = TextButton(
+            child: Text("Yes"),
+            onPressed: () {
+              Navigator.of(context).pop();
+              makePurchaseState.purchaseInventoryList.clear(); // dismiss dialog
+              MyHomePageState.changeTab();
+            },
+          );
+          Widget noButton = TextButton(
+            child: Text("No"),
+            onPressed: () {
+              Navigator.of(context).pop(); // dismiss dialog
+            },
+          );
+          return AlertDialog(
+            title: Text(""),
+            content: Text("Clear current purchase cart?"),
+            actions: [
+              yesButton,
+              noButton,
+            ],
+          );
+        });
   }
 }
