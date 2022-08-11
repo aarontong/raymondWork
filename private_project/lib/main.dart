@@ -100,6 +100,7 @@ class MyHomePageState extends State<MyHomePage> {
           makePurchaseState.purchaseInventoryList.length > 0) {
         showClearPurchaseAlert();
       } else {
+        makePurchaseState.purchaseConfirmed = false;
         this.counter = index;
       }
     });
@@ -150,7 +151,7 @@ class MyHomePageState extends State<MyHomePage> {
             child: Text("Yes"),
             onPressed: () {
               Navigator.of(context).pop();
-              makePurchaseState.purchaseInventoryList.clear(); // dismiss dialog
+              makePurchaseState.purchaseInventoryList.clear();
               MyHomePageState.changeTab();
             },
           );
