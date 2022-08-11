@@ -31,9 +31,9 @@ class Inventory {
 
   Map<String, dynamic> toJson() => {
         inventoryAndPurchaseModule.barCode: barCode,
-        inventoryAndPurchaseModule.importTime: importTimeString,
+        inventoryAndPurchaseModule.importTime: "'$importTimeString",
         inventoryAndPurchaseModule.productCode: productCode,
-        inventoryAndPurchaseModule.soldTime: soldTime,
+        inventoryAndPurchaseModule.soldTime: "'$soldTime",
         inventoryAndPurchaseModule.customerPhone: customerPhone,
         inventoryAndPurchaseModule.customerName: customerName,
         inventoryAndPurchaseModule.receiptID: receiptID

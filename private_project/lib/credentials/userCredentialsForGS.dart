@@ -105,7 +105,7 @@ class userCredentialsForGS {
     if (_productSheet == null) return "";
     final products = await _productSheet!.values.map.allRows();
     if (products == null) return "";
-    List<Inventory> productList = products.map(Inventory.fromJson).toList();
+    List<Product> productList = products.map(Product.fromJson).toList();
     String jsonString = jsonEncode(productList);
     return products == null ? "" : jsonString;
   }

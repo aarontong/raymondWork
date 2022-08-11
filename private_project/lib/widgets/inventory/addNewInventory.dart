@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:private_project/action/inventoryAndPurchaseModule.dart';
 import 'package:private_project/action/productModule.dart';
+import 'package:private_project/main.dart';
 import 'package:private_project/model/product.dart';
 
 import 'package:private_project/widgets/inventory/insertField/addInventoryButton.dart';
@@ -66,20 +68,27 @@ class addNewInventoryState extends State<addNewInventoryWidget> {
     if (productLine == "" || barCode == "" || productCode == "") {
       _showAlertDialog();
     } else {
+      DateTime now = DateTime.now();
       Inventory inventory = new Inventory(
           barCode: barCode,
           productCode: productCode,
-          importTimeString: DateTime.now().toString());
+          importTimeString: DateFormat('dd/MM/yyyy HH:mm:ss').format(now));
       inventoryAndPurchaseModule im = inventoryAndPurchaseModule();
       productModule pm = productModule();
-      await im.addNewInventory(inventory, barCode);
-      Product newProduct =
-          Product(productCode: productCode, productLine: productLine);
-      pm.addNewProduct(newProduct);
-      _showSuccessDialog().then((value) => {
-            Navigator.pop(context),
-            barCodeField.barCodeFieldController.text = ""
-          });
+      MyHomePageState.showLoadingDialog(context);
+      try {
+        await im.addNewInventory(inventory, barCode);
+        Product newProduct =
+            Product(productCode: productCode, productLine: productLine);
+        await pm.addNewProduct(newProduct);
+        Navigator.pop(context);
+        _showSuccessDialog().then((value) => {
+              Navigator.pop(context),
+              barCodeField.barCodeFieldController.text = ""
+            });
+      } catch (e) {
+        _showErrorDialog();
+      }
     }
   }
 
@@ -118,6 +127,27 @@ class addNewInventoryState extends State<addNewInventoryWidget> {
           return AlertDialog(
             title: Text("Input Success"),
             content: Text("Inventory info has been saved"),
+            actions: [
+              okAction,
+            ],
+          );
+        });
+  }
+
+  Future<void> _showErrorDialog() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          Widget okAction = TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          );
+
+          return AlertDialog(
+            title: Text("Error"),
+            content: Text("Failed to insert Inventory Info"),
             actions: [
               okAction,
             ],

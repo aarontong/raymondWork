@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:private_project/action/customerModule.dart';
 import 'package:private_project/action/pdfModule.dart';
 import 'package:private_project/credentials/userCredentialsForGS.dart';
@@ -130,14 +131,21 @@ class makePurchaseState extends State<makePurchaseWidget> {
 
   Future<void> confirmPurchase(List<Inventory> inventoryList) async {
     customerModule cm = customerModule.searchCustomer();
-
+    DateTime now = DateTime.now();
     Purchase newPurchase = new Purchase(
         purchasedInventory: inventoryList,
         customerName: cm.currentSelectedCustomer.enName,
         customerPhone: cm.currentSelectedCustomer.mobileNumber,
-        soldTime: DateTime.now().toString(),
+        soldTime: DateFormat('dd/MM/yyyy HH:mm:ss').format(now),
         receiptID: "1000");
-    await userCredentialsForGS.insertPurchase(newPurchase);
+    MyHomePageState.showLoadingDialog(context);
+    try {
+      await userCredentialsForGS.insertPurchase(newPurchase);
+      Navigator.pop(context);
+      _showSuccessDialog();
+    } catch (e) {
+      _showErrorDialog();
+    }
   }
 
   Future<void> addItemButtonPressed() async {
@@ -158,6 +166,48 @@ class makePurchaseState extends State<makePurchaseWidget> {
         _showBarcodeInvalidAlert();
       }
     }
+  }
+
+  Future<void> _showSuccessDialog() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          Widget okAction = TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          );
+
+          return AlertDialog(
+            title: Text("Input Success"),
+            content: Text("Purchase record has been saved"),
+            actions: [
+              okAction,
+            ],
+          );
+        });
+  }
+
+  Future<void> _showErrorDialog() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          Widget okAction = TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          );
+
+          return AlertDialog(
+            title: Text("Error"),
+            content: Text("Failed to Purchase Record"),
+            actions: [
+              okAction,
+            ],
+          );
+        });
   }
 
   Future<void> _showBarcodeInvalidAlert() async {

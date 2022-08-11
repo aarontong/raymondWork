@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:private_project/action/customerModule.dart';
+import 'package:private_project/main.dart';
 import 'package:private_project/model/customer.dart';
 import 'package:private_project/widgets/customer/insertField/addCustomerButton.dart';
 import 'package:private_project/widgets/customer/insertField/ageField.dart';
@@ -142,6 +143,27 @@ class addNewCustomerState extends State<addNewCustomerWidget> {
         });
   }
 
+  Future<void> _showErrorDialog() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          Widget okAction = TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          );
+
+          return AlertDialog(
+            title: Text("Error"),
+            content: Text("Failed to insert Customer Info"),
+            actions: [
+              okAction,
+            ],
+          );
+        });
+  }
+
   Future<void> submitButtonPressed() async {
     String emailText = emailField.emailFieldController.text;
     String mobileText = mobileField.mobileFieldController.text;
@@ -173,8 +195,14 @@ class addNewCustomerState extends State<addNewCustomerWidget> {
       newCustomer.profileImage = profileFilePath;
       newCustomer.relatedPersonString =
           relatedPersonField.relatedPersonController.text;
-      await cm.addNewCustomer(newCustomer);
-      _showSuccessDialog().then((value) => Navigator.pop(context));
+      MyHomePageState.showLoadingDialog(context);
+      try {
+        await cm.addNewCustomer(newCustomer);
+        Navigator.pop(context);
+        _showSuccessDialog().then((value) => Navigator.pop(context));
+      } catch (e) {
+        _showErrorDialog();
+      }
     }
   }
 }
