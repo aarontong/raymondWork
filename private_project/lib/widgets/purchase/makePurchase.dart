@@ -36,61 +36,42 @@ class makePurchaseState extends State<makePurchaseWidget> {
     pm.initDocument();
     var purchasedListWidget = SingleChildScrollView(
       child: Center(
-          child: Column(
-        //crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          ListView.builder(
-            itemBuilder: (BuildContext context, index) {
-              String barCode = purchaseInventoryList[index].barCode;
-              String productCode = purchaseInventoryList[index].productCode;
+        child: ListView.builder(
+          itemBuilder: (BuildContext context, index) {
+            String barCode = purchaseInventoryList[index].barCode;
+            String productCode = purchaseInventoryList[index].productCode;
 
-              return Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          "Bar Code: $barCode",
-                          maxLines: 2,
-                        ),
-                        flex: 1,
+            return Padding(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        "Bar Code: $barCode",
+                        maxLines: 2,
                       ),
-                      Expanded(
-                        child: Text(
-                          "Product Code: $productCode",
-                          maxLines: 2,
-                        ),
-                        flex: 1,
+                      flex: 1,
+                    ),
+                    Expanded(
+                      child: Text(
+                        "Product Code: $productCode",
+                        maxLines: 2,
                       ),
-                      TextButton(
-                          onPressed: () {
-                            deleteItem(index);
-                          },
-                          child: Text("Delete Item")),
-                    ],
-                  ));
-            },
-            itemCount: purchaseInventoryList.length,
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-          ),
-          SizedBox(
-            width: 150.0,
-            height: 50.0,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.red,
-                    width: 5,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Colors.white),
-              child:
-                  TextButton(onPressed: () {}, child: Text("confirm purchase")),
-            ),
-          )
-        ],
-      )),
+                      flex: 1,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          deleteItem(index);
+                        },
+                        child: Text("Delete Item")),
+                  ],
+                ));
+          },
+          itemCount: purchaseInventoryList.length,
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+        ),
+      ),
     );
 
     // TODO: implement build
@@ -109,8 +90,27 @@ class makePurchaseState extends State<makePurchaseWidget> {
                       Padding(
                           padding: EdgeInsets.all(10),
                           child: purchasedCustomerField()),
+                      purchasedListWidget,
                       purchaseConfirmed
-                          ? purchasedListWidget
+                          ? Padding(
+                              padding: EdgeInsets.all(10),
+                              child: SizedBox(
+                                width: 150.0,
+                                height: 50.0,
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.red,
+                                        width: 5,
+                                      ),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      color: Colors.white),
+                                  child: TextButton(
+                                      onPressed: () {},
+                                      child: Text("confirm purchase")),
+                                ),
+                              ))
                           : Padding(
                               padding: EdgeInsets.all(10),
                               child: makePurchaseButton(
@@ -206,7 +206,10 @@ class makePurchaseState extends State<makePurchaseWidget> {
           );
           Widget continueShoppintAction = TextButton(
             child: Text("Continue Shopping"),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pop();
+              setState(() {});
+            },
           );
           return AlertDialog(
             title: Text("Input Success"),
