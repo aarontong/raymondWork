@@ -10,7 +10,7 @@ import 'package:private_project/model/purchase.dart';
 import 'package:private_project/widgets/customer/insertField/relatedPersonField.dart';
 import 'package:private_project/widgets/inventory/insertField/barCodeField.dart';
 import 'package:private_project/widgets/productCode/purchasedCustomerField.dart';
-import 'package:private_project/widgets/purchase/makePurchaseButton.dart';
+import 'package:private_project/widgets/purchase/addItemButton.dart';
 import 'package:private_project/widgets/purchase/purchaseConfirmDialog.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +24,6 @@ class makePurchaseWidget extends StatefulWidget {
 }
 
 class makePurchaseState extends State<makePurchaseWidget> {
-  static bool purchaseConfirmed = false;
   static List<Inventory> purchaseInventoryList = [];
   GlobalKey globalKey = new GlobalKey(debugLabel: 'btm_app_bar');
 
@@ -75,6 +74,7 @@ class makePurchaseState extends State<makePurchaseWidget> {
     );
 
     // TODO: implement build
+    bool itemInList = purchaseInventoryList.length > 0;
     return new Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -91,7 +91,7 @@ class makePurchaseState extends State<makePurchaseWidget> {
                           padding: EdgeInsets.all(10),
                           child: purchasedCustomerField()),
                       purchasedListWidget,
-                      purchaseConfirmed
+                      itemInList
                           ? Padding(
                               padding: EdgeInsets.all(10),
                               child: SizedBox(
@@ -107,26 +107,40 @@ class makePurchaseState extends State<makePurchaseWidget> {
                                           BorderRadius.all(Radius.circular(20)),
                                       color: Colors.white),
                                   child: TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        confirmPurchase(purchaseInventoryList);
+                                      },
                                       child: Text("confirm purchase")),
                                 ),
                               ))
-                          : Padding(
-                              padding: EdgeInsets.all(10),
-                              child: makePurchaseButton(
-                                pressedButton: submitButtonPressed,
-                              ))
+                          : SizedBox(),
+                      Padding(
+                          padding: EdgeInsets.all(10),
+                          child: addItemButton(
+                            pressedButton: addItemButtonPressed,
+                          ))
                     ])))));
   }
 
   void deleteItem(int index) {
     setState(() {
       purchaseInventoryList.remove(purchaseInventoryList[index]);
-      if (purchaseInventoryList.length == 0) purchaseConfirmed = false;
     });
   }
 
-  Future<void> submitButtonPressed() async {
+  Future<void> confirmPurchase(List<Inventory> inventoryList) async {
+    customerModule cm = customerModule.searchCustomer();
+
+    Purchase newPurchase = new Purchase(
+        purchasedInventory: inventoryList,
+        customerName: cm.currentSelectedCustomer.enName,
+        customerPhone: cm.currentSelectedCustomer.mobileNumber,
+        soldTime: DateTime.now().toString(),
+        receiptID: "1000");
+    await userCredentialsForGS.insertPurchase(newPurchase);
+  }
+
+  Future<void> addItemButtonPressed() async {
     String barcodeText = barCodeField.barCodeFieldController.text;
 
     if (barcodeText == "") {
@@ -135,13 +149,10 @@ class makePurchaseState extends State<makePurchaseWidget> {
       Inventory? editInventory =
           await userCredentialsForGS.searchInventoryCell(barcodeText);
       if (editInventory != null) {
-        purchaseInventoryList.add(editInventory);
-        //editInventory.customer = cm.currentSelectedCustomer.mobileNumber;
-        // editInventory.soldTimeString = DateTime.now().toString();
-
-        //   await userCredentialsForGS.insertInventory(editInventory);
+        setState(() {
+          purchaseInventoryList.add(editInventory);
+        });
         pm.initDocument();
-        _showSuccessDialog();
         barCodeField.barCodeFieldController.text = "";
       } else {
         _showBarcodeInvalidAlert();
@@ -191,36 +202,6 @@ class makePurchaseState extends State<makePurchaseWidget> {
         });
   }
 
-  Future<void> _showSuccessDialog() async {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          Widget dismissAction = TextButton(
-            child: Text("Dismiss"),
-            onPressed: () {
-              Navigator.of(context).pop();
-              setState(() {
-                purchaseConfirmed = true;
-              });
-            },
-          );
-          Widget continueShoppintAction = TextButton(
-            child: Text("Continue Shopping"),
-            onPressed: () {
-              Navigator.of(context).pop();
-              setState(() {});
-            },
-          );
-          return AlertDialog(
-            title: Text("Input Success"),
-            content: Text("Purchase record can be saved now. Thanks!"),
-            actions: [
-              continueShoppintAction,
-              dismissAction,
-            ],
-          );
-        });
-  }
 /*
   void showPurchaseItemListDialog() {
     DialogWidget alert = DialogWidget.alert(

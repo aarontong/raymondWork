@@ -7,6 +7,7 @@ import 'package:private_project/action/productModule.dart';
 import 'package:private_project/model/customer.dart';
 import 'package:private_project/model/inventory.dart';
 import 'package:private_project/model/product.dart';
+import 'package:private_project/model/purchase.dart';
 
 class userCredentialsForGS {
   static const String _credentials = r'''
@@ -72,6 +73,16 @@ class userCredentialsForGS {
     if (_inventoryPurchaseSheet == null) return;
     await _inventoryPurchaseSheet!.values.map
         .insertRowByKey(inventory.barCode, inventory.toJson());
+  }
+
+  static Future insertPurchase(Purchase purchase) async {
+    for (int i = 0; i < purchase.purchasedInventory.length; i++) {
+      purchase.purchasedInventory[i].receiptID = purchase.receiptID;
+      purchase.purchasedInventory[i].customerName = purchase.customerName;
+      purchase.purchasedInventory[i].customerPhone = purchase.customerPhone;
+      purchase.purchasedInventory[i].soldTime = purchase.soldTime;
+      await insertInventory(purchase.purchasedInventory[i]);
+    }
   }
 
   static Future<String> getAllInventory() async {

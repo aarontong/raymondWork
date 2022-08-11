@@ -5,20 +5,20 @@ import 'package:private_project/model/inventory.dart';
 
 class Purchase {
   late List<Inventory> purchasedInventory;
-  late String customerEnName;
-  late String customerMobile;
-
-  late DateTime soldTime;
+  late String customerName;
+  late String customerPhone;
+  late Customer purchasedCustomer;
+  late String soldTime;
   late String receiptID;
 
   Purchase(
       {Key? key,
       required this.purchasedInventory,
-      required this.customerEnName,
-      required this.customerMobile,
+      required this.customerName,
+      required this.customerPhone,
       required this.soldTime,
       required this.receiptID});
-
+/*
   Purchase.fromJson(Map<String, dynamic> json)
       : receiptID = json["receiptID"],
         customerEnName = json["customer name"],
@@ -31,4 +31,5 @@ class Purchase {
         inventoryAndPurchaseModule.customerPhone: customerMobile,
         inventoryAndPurchaseModule.soldTime: soldTime,
       };
+      */
 }

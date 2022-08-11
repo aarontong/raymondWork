@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class makePurchaseButton extends StatelessWidget {
+class addItemButton extends StatelessWidget {
   final Function pressedButton;
-  const makePurchaseButton({Key? key, required this.pressedButton})
+  const addItemButton({Key? key, required this.pressedButton})
       : super(key: key);
 
   @override

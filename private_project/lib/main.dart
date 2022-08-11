@@ -100,7 +100,6 @@ class MyHomePageState extends State<MyHomePage> {
           makePurchaseState.purchaseInventoryList.length > 0) {
         showClearPurchaseAlert();
       } else {
-        makePurchaseState.purchaseConfirmed = false;
         this.counter = index;
       }
     });
