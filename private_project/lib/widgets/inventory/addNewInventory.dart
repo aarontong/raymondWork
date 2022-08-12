@@ -84,7 +84,9 @@ class addNewInventoryState extends State<addNewInventoryWidget> {
         Navigator.pop(context);
         _showSuccessDialog().then((value) => {
               Navigator.pop(context),
-              barCodeField.barCodeFieldController.text = ""
+              barCodeField.barCodeFieldController.text = "",
+              productCodeField.productCodeController.text = "",
+              descriptionFieldState.descriptionFieldController.text = ""
             });
       } catch (e) {
         _showErrorDialog();

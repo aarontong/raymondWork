@@ -130,6 +130,9 @@ class addNewCustomerState extends State<addNewCustomerWidget> {
             child: Text("OK"),
             onPressed: () {
               Navigator.pop(context);
+              setState(() {
+                resetFields();
+              });
             },
           );
 
@@ -204,5 +207,18 @@ class addNewCustomerState extends State<addNewCustomerWidget> {
         _showErrorDialog();
       }
     }
+  }
+
+  Future<void> resetFields() async {
+    enNameField.enNameFieldController.text = "";
+    chNameField.chNameFieldController.text = "";
+    mobileField.mobileFieldController.text = "";
+    emailField.emailFieldController.text = "";
+    professionField.professionFieldController.text = "";
+    homeAddressField.homeAddressFieldController.text = "";
+    relatedPersonField.relatedPersonController.text = "";
+    genderField.gender = "";
+    nameCardImageField.image =
+        await nameCardImageState.imageToFile(imageName: "image", ext: "jpeg");
   }
 }

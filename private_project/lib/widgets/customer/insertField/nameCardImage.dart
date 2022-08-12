@@ -8,10 +8,10 @@ import 'package:safe_device/safe_device.dart';
 import 'package:path_provider/path_provider.dart';
 
 class nameCardImageField extends StatefulWidget {
-  static late File _image;
+  static late File image;
 
   static File profileFilePath() {
-    return _image;
+    return image;
   }
 
   @override
@@ -27,14 +27,14 @@ class nameCardImageState extends State<nameCardImageField> {
     bool isAnEmulator = await SafeDevice.isRealDevice;
     if (!isAnEmulator && Platform.isIOS) {
       setState(() async {
-        nameCardImageField._image =
+        nameCardImageField.image =
             await imageToFile(imageName: "camera-icon", ext: "jpeg");
-        imageExist = nameCardImageField._image.existsSync();
+        imageExist = nameCardImageField.image.existsSync();
       });
     } else {
       setState(() {
-        nameCardImageField._image = File(photo!.path);
-        imageExist = nameCardImageField._image.existsSync();
+        nameCardImageField.image = File(photo!.path);
+        imageExist = nameCardImageField.image.existsSync();
       });
     }
   }
@@ -45,7 +45,7 @@ class nameCardImageState extends State<nameCardImageField> {
 
     return imageExist
         ? Image.file(
-            File(nameCardImageField._image.path),
+            File(nameCardImageField.image.path),
             height: 300,
           )
         : GestureDetector(

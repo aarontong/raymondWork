@@ -159,9 +159,9 @@ class makePurchaseState extends State<makePurchaseWidget> {
       if (editInventory != null) {
         setState(() {
           purchaseInventoryList.add(editInventory);
+          barCodeField.barCodeFieldController.text = "";
         });
         pm.initDocument();
-        barCodeField.barCodeFieldController.text = "";
       } else {
         _showBarcodeInvalidAlert();
       }
@@ -175,6 +175,8 @@ class makePurchaseState extends State<makePurchaseWidget> {
           Widget okAction = TextButton(
             child: Text("OK"),
             onPressed: () {
+              barCodeField.barCodeFieldController.text = "";
+              purchasedCustomerField.purchasedCustomerController.text = "";
               Navigator.pop(context);
             },
           );
