@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:private_project/action/customerModule.dart';
 import 'package:private_project/action/pdfModule.dart';
 import 'package:private_project/credentials/userCredentialsForGS.dart';
@@ -174,7 +177,12 @@ class makePurchaseState extends State<makePurchaseWidget> {
         builder: (BuildContext context) {
           Widget okAction = TextButton(
             child: Text("OK"),
-            onPressed: () {
+            onPressed: () async {
+              Directory tempDir = await getTemporaryDirectory();
+              String pdfStoragePath = tempDir.path;
+              File tempFile = File('$pdfStoragePath/copy.pdf');
+              pm.printDocument(tempFile);
+              //   pm.sendEmail();
               barCodeField.barCodeFieldController.text = "";
               purchasedCustomerField.purchasedCustomerController.text = "";
               Navigator.pop(context);

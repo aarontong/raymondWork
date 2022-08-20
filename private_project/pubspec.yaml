@@ -53,6 +53,9 @@ dependencies:
   syncfusion_flutter_pdf: ^20.2.43
   flutter_email_sender:
   printing: ^5.9.2
+  native_pdf_renderer: ^4.0.1
+  pdfx: ^1.0.0
+  flutter_share: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:printing/printing.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_share/flutter_share.dart';
 
 class pdfModule {
   late PdfDocument document;
@@ -29,6 +30,7 @@ class pdfModule {
     //Load the PDF document.
     final PdfDocument document = PdfDocument(
         inputBytes: await _readDocumentData('receipt_template.pdf'));
+
     PdfPage page = document.pages[0];
 
 //Create text box field and add to the forms collection.
@@ -75,7 +77,15 @@ class pdfModule {
   }
 
   void printDocument(File file) async {
-    //await FlutterPdfPrinter.printFile(file.path);
-    await Printing.layoutPdf(onLayout: (_) async => file.readAsBytes());
+    if (Platform.isAndroid) {
+      await Printing.layoutPdf(
+          onLayout: (PdfPageFormatAction) async => file.readAsBytes());
+    } else {
+      await FlutterShare.shareFile(
+        title: 'Example share',
+        text: 'Example share text',
+        filePath: file.path,
+      );
+    }
   }
 }
